@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import flask
-from flaskext import wtf
+import flask  # @UnresolvedImport
+from flaskext import wtf  # @UnresolvedImport
 
 import auth
 import util

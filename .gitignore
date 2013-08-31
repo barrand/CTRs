@@ -33,3 +33,9 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+*.db
+
+temp/storage/datastore.db
+
+*.db-journal
