@@ -1,0 +1,35 @@
+#extends 'base.html'
+
+# block content
+	<div class="page-header">
+		<h1>{{title}}</h1>
+	</div>
+	
+	<div class="row">
+		<div class="span12">
+			<table class="table table-bordered">
+				<thread>
+					<tr>
+						<th class="span1">ID</th>
+						<th class="span2">Name</th>
+						<th class="span2">Email</th>
+						<th class="span2">Phone</th>
+						<th class="span5">Address</th>
+					</tr>
+				</thread>
+				<tbody>
+					# for contact_db in contact_dbs
+						<tr>
+							<td>{{contact_db.key.id()}}</td>
+							<td>{{contact_db.name}}</td>
+							<td>{{contact_db.email}}</td>
+							<td>{{contact_db.phone}}</td>
+							<td>{{contact_db.address}}</td>
+						</tr>
+					# endfor
+				</tbody>
+			</table>
+		</div>
+	</div>
+# endblock	
+		

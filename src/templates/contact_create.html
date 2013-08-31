@@ -1,0 +1,32 @@
+# extends 'base.html'
+ 
+# block content
+  <div class="page-header">
+    <h1>{{title}}</h1>
+  </div>
+  <div class="row">
+    <div class="span8">
+      <form class="form" method="POST" action=".">
+        <fieldset>
+          {{form.csrf_token}}
+ 
+          # set form_field = form.name
+          # include 'bit/form_text_field.html'
+ 
+          # set form_field = form.email
+          # include 'bit/form_text_field.html'
+ 
+          # set form_field = form.phone
+          # include 'bit/form_text_field.html'
+ 
+          # set form_field = form.address
+          # include 'bit/form_textarea_field.html'
+ 
+          <button type="submit" class="btn btn-primary">
+            Create Contact
+          </button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+# endblock
