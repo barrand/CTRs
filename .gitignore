@@ -36,6 +36,6 @@ nosetests.xml
 
 *.db
 
-temp/storage/datastore.db
+temp/*
 
 *.db-journal

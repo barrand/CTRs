@@ -12,6 +12,11 @@
     <nav class="collapse navbar-collapse" role="navigation">
       <ul class="nav navbar-nav">
         <li class="{{'active' if html_class == 'contact-create' else ''}}">
+		    <a href="{{url_for('contact_create')}}">Scriptures</a>
+		  </li>
+      </ul>
+      <ul class="nav navbar-nav">
+        <li class="{{'active' if html_class == 'contact-create' else ''}}">
 		    <a href="{{url_for('contact_create')}}">Create Contact</a>
 		  </li>
       </ul>
