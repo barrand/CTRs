@@ -18,6 +18,8 @@ import util
 import model
 import admin  # @UnusedImport
 import contact # @UnusedImport
+import scripture # @UnusedImport
+import scripture_loader  # @UnusedImport
 
 @app.route('/')
 def welcome():

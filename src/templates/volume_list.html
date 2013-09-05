@@ -1,0 +1,41 @@
+#extends 'base.html'
+
+# block content
+	<div class="page-header">
+		<h1>{{title}}</h1>
+	</div>
+	
+	<div class="row">
+		<div class="span12">
+			<table class="table table-bordered">
+				<thread>
+					<tr>
+						<th class="span1">Volume Id</th>
+						<th class="span2">Title</th>
+						<th class="span2">Title Long</th>
+						<th class="span2">Subtitle</th>
+						<th class="span2">Lds org</th>
+						<th class="span2">Num Books</th>
+						<th class="span2">Num Chapters</th>
+						<th class="span2">Num Verses</th>
+					</tr>
+				</thread>
+				<tbody>
+					# for volume_db in volume_dbs
+						<tr>
+							<td>{{volume_db.volume_id}}</td>
+							<td>{{volume_db.volume_title}}</td>
+							<td>{{volume_db.volume_title_long}}</td>
+							<td>{{volume_db.volume_subtitle}}</td>
+							<td>{{volume_db.lds_org}}</td>
+							<td>{{volume_db.num_books}}</td>
+							<td>{{volume_db.num_chapters}}</td>
+							<td>{{volume_db.num_verses}}</td>
+						</tr>
+					# endfor
+				</tbody>
+			</table>
+		</div>
+	</div>
+# endblock	
+		

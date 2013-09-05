@@ -1,0 +1,45 @@
+#extends 'base.html'
+
+# block content
+	<div class="page-header">
+		<h1>{{title}}</h1>
+	</div>
+	
+	<div class="row">
+		<div class="span12">
+			<table class="table table-bordered">
+				<thread>
+					<tr>
+						<th class="span1">Book Id</th>
+						<th class="span2">Volume ID</th>
+						<th class="span2">Book Title</th>
+						<th class="span2">Book Title Long</th>
+						<th class="span2">Book Title Short</th>
+						<th class="span2">Book Title JST</th>
+						<th class="span2">Book Subtitle</th>
+						<th class="span2">Lds org</th>
+						<th class="span2">Num Chapters</th>
+						<th class="span2">Num Verses</th>
+					</tr>
+				</thread>
+				<tbody>
+					# for book_db in book_dbs
+						<tr>
+							<td>{{book_db.book_id}}</td>
+							<td>{{book_db.volume_id}}</td>
+							<td>{{book_db.book_title}}</td>
+							<td>{{book_db.book_title_long}}</td>
+							<td>{{book_db.book_title_short}}</td>
+							<td>{{book_db.book_title_jst}}</td>
+							<td>{{book_db.book_subtitle}}</td>
+							<td>{{book_db.lds_org}}</td>
+							<td>{{book_db.num_chapters}}</td>
+							<td>{{book_db.num_verses}}</td>
+						</tr>
+					# endfor
+				</tbody>
+			</table>
+		</div>
+	</div>
+# endblock	
+		
