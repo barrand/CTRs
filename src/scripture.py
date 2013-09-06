@@ -4,14 +4,28 @@ import model
 from main import app
 import util
 
+VOLUME = 0
+BOOK = 1
+VERSE = 2
+selectedNavLevel = VOLUME
+
+@app.route('/scripture/')
+@auth.login_required
+def scripture():
+  volume_dbs, more_cursor = util.retrieve_dbs(model.Volume.query(), order='volume_id')
+  return flask.render_template(
+                               'scripture_selector.html',
+                               html_class='scripture-selector',
+                               title='Scripture Selector',
+                               volume_dbs=volume_dbs,
+                               more_url=util.generate_more_url(more_cursor),
+                               )
+  
 @app.route('/volume/')
 @auth.login_required
 def volume_list():
   volume_dbs, more_cursor = util.retrieve_dbs(
-                                               model.Volume.query(), 
-                                               limit=util.param('limit', int), 
-                                               cursor=util.param('cursor'), 
-                                               order=util.param('order'),
+                                               model.Volume.query()
                                                )
   return flask.render_template(
                                'volume_list.html',

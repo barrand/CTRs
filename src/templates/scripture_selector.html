@@ -1,0 +1,37 @@
+#extends 'base.html'
+
+# block content
+
+<script type=text/javascript>
+    function myFunction(volume_id){
+    	alert('volume_id ' + volume_id);
+    }
+</script>
+	<div class="page-header">
+		<h1>{{title}}</h1>
+	</div>
+	
+	<ul class="breadcrumb">
+  <li><a href="#">Home</a> <span class="divider">/</span></li>
+  <li><a href="#">Library</a> <span class="divider">/</span></li>
+  <li class="active">Data</li>
+</ul>
+	<div class="row">
+		<div class="span12">
+			# for volume_db in volume_dbs
+				<a href="javascript:myFunction({{volume_db.volume_id}});">{{volume_db.volume_title}}</a><br>
+				<!-- <tr>
+					<td>{{volume_db.volume_id}}</td>
+					<td>{{volume_db.volume_title}}</td>
+					<td>{{volume_db.volume_title_long}}</td>
+					<td>{{volume_db.volume_subtitle}}</td>
+					<td>{{volume_db.lds_org}}</td>
+					<td>{{volume_db.num_books}}</td>
+					<td>{{volume_db.num_chapters}}</td>
+					<td>{{volume_db.num_verses}}</td>
+				</tr> -->
+			# endfor
+		</div>
+	</div>
+# endblock	
+		
