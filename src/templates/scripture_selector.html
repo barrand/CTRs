@@ -3,21 +3,56 @@
 # block content
 
 <script type=text/javascript>
+    VOLUME_SELECTOR = 0; //Label = scriptures
+    BOOK_SELECTOR = 1;
+    CHAPTER_SELECTOR = 2;
+    VERSE_SELECTOR = 3;
+    label = "Scriptures";
+    current_selector = VOLUME_SELECTOR;
     function myFunction(volume_id){
     	alert('volume_id ' + volume_id);
     }
 </script>
+
 	<div class="page-header">
 		<h1>{{title}}</h1>
 	</div>
 	
 	<ul class="breadcrumb">
-  <li><a href="#">Home</a> <span class="divider">/</span></li>
+  <li class="{{'active' if current_selector == VOLUME_SELECTOR else ''}}"><a href="#">Scriptures</a> <span class="divider">/</span></li>
   <li><a href="#">Library</a> <span class="divider">/</span></li>
   <li class="active">Data</li>
 </ul>
+<script type=text/javascript>
+  $(function() {
+    $('a#calculate').bind('click', function() {
+      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+        a: $('input[name="a"]').val(),
+        b: $('input[name="b"]').val()
+      }, function(data) {
+        $("#result").text(data.result);
+      });
+      return false;
+    });
+  });
+</script>
+<h1>jQuery Example</h1>
+<p><input type=text size=5 name=a> +
+   <input type=text size=5 name=b> =
+   <span id=result>?</span>
+<p><a href=# id=calculate>calculate server side</a>
 	<div class="row">
+	asdf
+	# if current_selector
+		dude
+	# endif
 		<div class="span12">
+		asdfdsds
+			# if current_selector 
+				blkjdfalsk
+			# elif current_selector == BOOK_SELECTOR
+				not volume
+			# endif
 			# for volume_db in volume_dbs
 				<a href="javascript:myFunction({{volume_db.volume_id}});">{{volume_db.volume_title}}</a><br>
 				<!-- <tr>

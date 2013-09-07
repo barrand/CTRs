@@ -3,11 +3,18 @@ import auth
 import model
 from main import app
 import util
+from flask import jsonify, request  # @UnresolvedImport
 
 VOLUME = 0
 BOOK = 1
 VERSE = 2
 selectedNavLevel = VOLUME
+
+@app.route('/_add_numbers')
+def add_numbers():
+    a = request.args.get('a', 0, type=int)
+    b = request.args.get('b', 0, type=int)
+    return jsonify(result=a + b)
 
 @app.route('/scripture/')
 @auth.login_required
@@ -20,6 +27,12 @@ def scripture():
                                volume_dbs=volume_dbs,
                                more_url=util.generate_more_url(more_cursor),
                                )
+
+@app.route('/get_volumes/')
+@auth.login_required
+def get_volumes():
+  volume_dbs, more_cursor = util.retrieve_dbs(model.Volume.query(), order='volume_id')
+  return jsonify(volume_dbs)
   
 @app.route('/volume/')
 @auth.login_required
