@@ -1,10 +1,10 @@
 #extends 'base.html'
 
 # block content
-
+<script src="lib/scripture_objects.js"></script>
 <script type=text/javascript>
-    VOLUME_SELECTOR = 0; //Label = scriptures
-    BOOK_SELECTOR = 1;
+	VOLUME_SELECTOR = 0; //Label = scriptures
+	BOOK_SELECTOR = 1;
     CHAPTER_SELECTOR = 2;
     VERSE_SELECTOR = 3;
     label = "Scriptures";
@@ -12,18 +12,40 @@
     function myFunction(volume_id){
     	alert('volume_id ' + volume_id);
     }
-</script>
+    
+    function loadChapters(book_id, num_chapters){
+    	$( "#holder" ).empty();
+    	alert('load chapters, book id: ' + book_id + ' num chapters: ' + num_chapters);
+    	for(var i=0; i< num_chapters; i++){
+    		displayNum = i+1;
+    		string = "<a href='javascript:loadVerses("+ book_id + ""+ i + ");');'>"+ displayNum + "</a><br>";
+	    	$( "#holder" ).append( string );
+    	}
+    }
+    
+    function loadBooks(book_key){
+    	$( "#holder" ).empty();
+    	$.each(book_key, function(key,value){
+	    	string = "<a href='javascript:loadChapters("+ value.book_id + ", "+ value.num_chapters + ");');'>"+ value.book_title + "</a><br>";
+	    	$( "#holder" ).append( string );
+	    });
+    	
+    }
+    
+    function loadVolumes(){
+	    $.each(volumesArray, function(key,value){
+	    	string = "<a href='javascript:loadBooks("+ value.book_key + ");');'>"+ value.volume_title + "</a><br>";
+	    	$( "#holder" ).append( string );
+	    });
+    }
 
-	<div class="page-header">
-		<h1>{{title}}</h1>
-	</div>
-	
-	<ul class="breadcrumb">
-  <li class="{{'active' if current_selector == VOLUME_SELECTOR else ''}}"><a href="#">Scriptures</a> <span class="divider">/</span></li>
-  <li><a href="#">Library</a> <span class="divider">/</span></li>
-  <li class="active">Data</li>
-</ul>
-<script type=text/javascript>
+
+      
+  //the on ready function
+  $(document).ready(function () {
+	   	loadVolumes();
+	});
+    
   $(function() {
     $('a#calculate').bind('click', function() {
       $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
@@ -36,37 +58,14 @@
     });
   });
 </script>
-<h1>jQuery Example</h1>
-<p><input type=text size=5 name=a> +
-   <input type=text size=5 name=b> =
-   <span id=result>?</span>
-<p><a href=# id=calculate>calculate server side</a>
-	<div class="row">
-	asdf
-	# if current_selector
-		dude
-	# endif
-		<div class="span12">
-		asdfdsds
-			# if current_selector 
-				blkjdfalsk
-			# elif current_selector == BOOK_SELECTOR
-				not volume
-			# endif
-			# for volume_db in volume_dbs
-				<a href="javascript:myFunction({{volume_db.volume_id}});">{{volume_db.volume_title}}</a><br>
-				<!-- <tr>
-					<td>{{volume_db.volume_id}}</td>
-					<td>{{volume_db.volume_title}}</td>
-					<td>{{volume_db.volume_title_long}}</td>
-					<td>{{volume_db.volume_subtitle}}</td>
-					<td>{{volume_db.lds_org}}</td>
-					<td>{{volume_db.num_books}}</td>
-					<td>{{volume_db.num_chapters}}</td>
-					<td>{{volume_db.num_verses}}</td>
-				</tr> -->
-			# endfor
-		</div>
+	<div class="page-header">
+		<h1>{{title}}</h1>
 	</div>
+	<ul class="breadcrumb">
+  <li class="{{'active' if current_selector == VOLUME_SELECTOR else ''}}"><a href="#">Scriptures</a> <span class="divider">/</span></li>
+  <li><a href="#">Library</a> <span class="divider">/</span></li>
+  <li class="active">Data</li>
+</ul>
+<span id=holder></span>
 # endblock	
 		

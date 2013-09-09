@@ -37,6 +37,7 @@ SCRIPTS_MODULES = [
 SCRIPTS = {
     'libs': [
       'lib/jquery.js',
+      'lib/scripture_objects.js',
       'lib/bootstrap/js/alert.js',
       'lib/bootstrap/js/button.js',
       'lib/bootstrap/js/collapse.js',

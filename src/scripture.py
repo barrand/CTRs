@@ -19,14 +19,11 @@ def add_numbers():
 @app.route('/scripture/')
 @auth.login_required
 def scripture():
-  volume_dbs, more_cursor = util.retrieve_dbs(model.Volume.query(), order='volume_id')
+#   volume_dbs, more_cursor = util.retrieve_dbs(model.Volume.query(), order='volume_id')
   return flask.render_template(
                                'scripture_selector.html',
                                html_class='scripture-selector',
-                               title='Scripture Selector',
-                               volume_dbs=volume_dbs,
-                               more_url=util.generate_more_url(more_cursor),
-                               )
+                               title='Scripture Selector',)
 
 @app.route('/get_volumes/')
 @auth.login_required

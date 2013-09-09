@@ -19,8 +19,7 @@
 	  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 	</script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="{{
-	  url_for('static', filename='jquery-1.10.2.js') }}">\x3C/script>')</script>
+	<script>window.jQuery || document.write('<script src="lib/jquery.js">\x3C/script>')</script>
   </head>
 
   <body>
