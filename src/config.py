@@ -38,6 +38,7 @@ SCRIPTS = {
     'libs': [
       'lib/jquery.js',
       'lib/scripture_objects.js',
+      'lib/scripture_navigation.js',
       'lib/bootstrap/js/alert.js',
       'lib/bootstrap/js/button.js',
       'lib/bootstrap/js/collapse.js',
