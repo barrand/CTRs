@@ -90,10 +90,7 @@ def verse():
                                book_id=v['book_id'],
                                chapter=v['chapter'],
                                verse=v['verse'],
-                               pilcrow=v['pilcrow'],
                                verse_scripture=v['verse_scripture'],
-                               verse_title=v['verse_title'],
-                               verse_title_short=v['verse_title_short'],
                                )
       verse_db.put();
       

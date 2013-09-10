@@ -1,9 +1,10 @@
-import flask # @UnresolvedImport
+import flask  # @UnresolvedImport
 import auth
 import model
 from main import app
 import util
-from flask import jsonify, request  # @UnresolvedImport
+from flask import jsonify, request, Response  # @UnresolvedImport
+import json
 
 VOLUME = 0
 BOOK = 1
@@ -28,14 +29,31 @@ def scripture():
 @app.route('/get_volumes/')
 @auth.login_required
 def get_volumes():
-  volume_dbs, more_cursor = util.retrieve_dbs(model.Volume.query(), order='volume_id')
+  volume_dbs, more_cursor = util.retrieve_dbs(model.Volume.query(), order='volume_id')  # @UndefinedVariable
   return jsonify(volume_dbs)
+
+@app.route('/get_verses/')
+@auth.login_required
+def get_verses():
+  print "get verses baby"
+  book = request.args.get('book', 0, type=int)
+  chapter_id = request.args.get('chapter_id', 0, type=int)
+  print "book ", book
+  print "chapter_id ", chapter_id
+  query = model.Verse.query(model.Verse.book_id == book, # @UndefinedVariable
+                            model.Verse.chapter == chapter_id).order(model.Verse.verse_id);
+#   query.filter(model.Verse.book_id==book);
+#   query.order(model.Verse.verse_id);
+  verse_dbs = query.fetch_page(200);
+  print verse_dbs[0][0].verse_scripture
+  print list(verse_dbs)
+  return jsonify(list(verse_dbs))
   
 @app.route('/volume/')
 @auth.login_required
 def volume_list():
   volume_dbs, more_cursor = util.retrieve_dbs(
-                                               model.Volume.query()
+                                               model.Volume.query()# @UndefinedVariable
                                                )
   return flask.render_template(
                                'volume_list.html',
@@ -49,9 +67,9 @@ def volume_list():
 @auth.login_required
 def book_list():
   book_dbs, more_cursor = util.retrieve_dbs(
-                                               model.Book.query(), 
-                                               limit=util.param('limit', int), 
-                                               cursor=util.param('cursor'), 
+                                               model.Book.query(),# @UndefinedVariable
+                                               limit=util.param('limit', int),
+                                               cursor=util.param('cursor'),
                                                order=util.param('order'),
                                                )
   return flask.render_template(
@@ -65,9 +83,9 @@ def book_list():
 @auth.login_required
 def verse_list():
   verse_dbs, more_cursor = util.retrieve_dbs(
-                                               model.Verse.query(), 
-                                               limit=util.param('limit', 600), 
-                                               cursor=util.param('cursor'), 
+                                               model.Verse.query(),# @UndefinedVariable
+                                               limit=util.param('limit', 600),
+                                               cursor=util.param('cursor'),
                                                order=util.param('order'),
                                                )
   return flask.render_template(

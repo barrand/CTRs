@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from google.appengine.ext import ndb
+from google.appengine.ext import ndb  # @UnresolvedImport
 from uuid import uuid4  # @UnresolvedImport
 import os
 import modelx
@@ -107,7 +107,4 @@ class Verse(Base):
   book_id = ndb.IntegerProperty(required=True)
   chapter = ndb.IntegerProperty(required=True)
   verse = ndb.IntegerProperty(required=True)
-  pilcrow = ndb.StringProperty(required=True)
   verse_scripture = ndb.TextProperty(required=True)
-  verse_title = ndb.StringProperty(required=True)
-  verse_title_short = ndb.StringProperty(required=True)
