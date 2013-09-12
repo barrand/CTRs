@@ -26,12 +26,6 @@ def scripture():
                                html_class='scripture',
                                title='Scripture Selector',)
 
-@app.route('/get_volumes/')
-@auth.login_required
-def get_volumes():
-  volume_dbs, more_cursor = util.retrieve_dbs(model.Volume.query(), order='volume_id')  # @UndefinedVariable
-  return jsonify(volume_dbs)
-
 @app.route('/get_verses/')
 @auth.login_required
 def get_verses():
@@ -63,22 +57,6 @@ def volume_list():
                                more_url=util.generate_more_url(more_cursor),
                                )
 
-@app.route('/book/')
-@auth.login_required
-def book_list():
-  book_dbs, more_cursor = util.retrieve_dbs(
-                                               model.Book.query(),# @UndefinedVariable
-                                               limit=util.param('limit', int),
-                                               cursor=util.param('cursor'),
-                                               order=util.param('order'),
-                                               )
-  return flask.render_template(
-                               'book_list.html',
-                               html_class='book-list',
-                               title='Book List',
-                               book_dbs=book_dbs,
-                               more_url=util.generate_more_url(more_cursor),
-                               )
 @app.route('/verse/')
 @auth.login_required
 def verse_list():
