@@ -21,6 +21,7 @@ class Base(ndb.Model, modelx.BaseX):
       'created',
       'modified',
     ])
+  
 
 
 class Config(Base, modelx.ConfigX):
@@ -108,3 +109,12 @@ class Verse(Base):
   chapter = ndb.IntegerProperty(required=True)
   verse = ndb.IntegerProperty(required=True)
   verse_scripture = ndb.TextProperty(required=True)
+  
+  def to_readable_dict(self):
+    d = {}
+    d['verse_id']= self.verse_id 
+    d['volume_id']= self.volume_id 
+    d['chapter']= self.chapter 
+    d['verse']= self.verse 
+    d['verse_scripture']= self.verse_scripture 
+    return d

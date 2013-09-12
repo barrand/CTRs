@@ -42,12 +42,12 @@ def get_verses():
   print "chapter_id ", chapter_id
   query = model.Verse.query(model.Verse.book_id == book, # @UndefinedVariable
                             model.Verse.chapter == chapter_id).order(model.Verse.verse_id);
-#   query.filter(model.Verse.book_id==book);
-#   query.order(model.Verse.verse_id);
-  verse_dbs = query.fetch_page(200);
-  print verse_dbs[0][0].verse_scripture
-  print list(verse_dbs)
-  return jsonify(list(verse_dbs))
+  verse_dbs = query.fetch();
+  myArray = []
+  for v in verse_dbs:
+    myArray.append(v.to_readable_dict())
+  j = json.dumps(myArray)
+  return j
   
 @app.route('/volume/')
 @auth.login_required
