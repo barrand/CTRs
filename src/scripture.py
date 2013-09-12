@@ -23,7 +23,7 @@ def scripture():
 #   volume_dbs, more_cursor = util.retrieve_dbs(model.Volume.query(), order='volume_id')
   return flask.render_template(
                                'scripture_selector.html',
-                               html_class='scripture-selector',
+                               html_class='scripture',
                                title='Scripture Selector',)
 
 @app.route('/get_volumes/')

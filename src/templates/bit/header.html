@@ -11,18 +11,8 @@
     </div>
     <nav class="collapse navbar-collapse" role="navigation">
       <ul class="nav navbar-nav">
-        <li class="{{'active' if html_class == 'volume-list' else ''}}">
-		    <a href="{{url_for('volume_list')}}">Volume List</a>
-		  </li>
-      </ul>
-      <ul class="nav navbar-nav">
-        <li class="{{'active' if html_class == 'book-list' else ''}}">
-		    <a href="{{url_for('book_list')}}">Book List</a>
-		  </li>
-      </ul>
-      <ul class="nav navbar-nav">
-        <li class="{{'active' if html_class == 'verse-list' else ''}}">
-		    <a href="{{url_for('verse_list')}}">Verse List</a>
+        <li class="{{'active' if html_class == 'scripture-selector' else ''}}">
+		    <a href="{{url_for('scripture')}}">Scriptures</a>
 		  </li>
       </ul>
       <ul class="nav navbar-nav">
