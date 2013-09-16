@@ -9,4 +9,5 @@ encoding//src/lib/werkzeug/contrib/wrappers.py=utf-8
 encoding//src/main.py=utf-8
 encoding//src/model.py=utf-8
 encoding//src/modelx.py=utf-8
+encoding//src/run.py=utf-8
 encoding//src/util.py=utf-8

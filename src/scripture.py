@@ -6,11 +6,6 @@ import util
 from flask import jsonify, request, Response  # @UnresolvedImport
 import json
 
-VOLUME = 0
-BOOK = 1
-VERSE = 2
-selectedNavLevel = VOLUME
-
 @app.route('/_add_numbers')
 def add_numbers():
     a = request.args.get('a', 0, type=int)

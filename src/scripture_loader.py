@@ -1,24 +1,6 @@
 from google.appengine.ext import db
-from google.appengine.tools import bulkloader
 from google.appengine.ext import ndb
 from model import Base
-
-class VolumeLoader(bulkloader.Loader):
-    def __init__(self):
-        bulkloader.Loader.__init__(self, 'Volume',
-                                   [('volume_id', int),
-                                    ('volume_title', str),
-                                    ('volume_title_long', str),
-                                    ('volume_subtitle', str),
-                                    ('lds_org', str),
-                                    ('num_books', int),
-                                    ('num_chapters', int),
-                                    ('num_verses', int)
-                                   ])
-
-loaders = [VolumeLoader]
-
-
 
 import json  # @UnresolvedImport
 import urllib2  # @UnresolvedImport
@@ -84,18 +66,26 @@ def verse():
     site = urllib2.urlopen(url)
     verses = json.load(site)
     for v in verses:
-      verse_db = model.Verse(
-                               verse_id=v['verse_id'],
-                               volume_id=v['volume_id'],
-                               book_id=v['book_id'],
-                               chapter=v['chapter'],
-                               verse=v['verse'],
-                               verse_scripture=v['verse_scripture'],
-                               )
-      verse_db.put();
+      query = model.Verse.query(model.Verse.verse_id == v['verse_id']);
+      existing_verse = query.fetch();
+      print "existing verse ?", existing_verse
+      #if we dont already have  
+      if len(existing_verse) == 0:
+        verse_db = model.Verse(
+                                 verse_id=v['verse_id'],
+                                 volume_id=v['volume_id'],
+                                 book_id=v['book_id'],
+                                 chapter=v['chapter'],
+                                 verse=v['verse'],
+                                 verse_scripture=v['verse_scripture'],
+                                 )
+        verse_db.put();
+        print "saved new verse ", v['verse_id']
+      else:
+        print "didn't need to save ", v['verse_id']
       
     string = ""
     verse_dbs = util.retrieve_dbs(model.Verse.query())
-    print '--, ', len(verse_dbs);
+    print 'finished total dbs: ', len(verse_dbs);
     return string
   

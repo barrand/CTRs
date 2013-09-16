@@ -31,20 +31,24 @@ STYLES = [
 
 SCRIPTS_MODULES = [
     'libs',
+    'scripture',
     'scripts',
   ]
+
 
 SCRIPTS = {
     'libs': [
       'lib/jquery.js',
-      'lib/scripture_objects.js',
-      'lib/scripture_navigation.js',
       'lib/bootstrap/js/alert.js',
       'lib/bootstrap/js/button.js',
       'lib/bootstrap/js/collapse.js',
       'lib/bootstrap/js/dropdown.js',
       'lib/bootstrap/js/tooltip.js',
     ],
+    'scripture': [
+      'src/coffee/scripture_objects.js',
+      'src/coffee/scripture_navigation.js',
+    ],    
     'scripts': [
       'src/coffee/common/util.coffee',
       'src/coffee/common/service.coffee',
