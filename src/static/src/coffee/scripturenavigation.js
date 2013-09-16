@@ -1,9 +1,9 @@
-currentVolumeBookArray = "";
-currentVolumeObject = "";
-currentVolumeKey = "";
-currentChapter = -1;
+window.currentVolumeBookArray = "";
+window.currentVolumeObject = "";
+window.currentVolumeKey = "";
+window.currentChapter = -1;
 
-function loadVolumes() {
+window.loadVolumes = function() {
 	$("#holder").empty();
 
 	// deal with the breadcrumbs
@@ -20,7 +20,7 @@ function loadVolumes() {
 
 
 
-function loadBooks(volumeKey) {
+window.loadBooks = function(volumeKey) {
 	$("#holder").empty();
 
 	currentVolumeObject = volumesArray[volumeKey];
@@ -44,7 +44,7 @@ function loadBooks(volumeKey) {
 
 }
 
-function loadChapters(bookKey) {
+window.loadChapters = function(bookKey) {
 	$("#holder").empty();
 
 	currentBookObject = currentVolumeBookArray[bookKey];
@@ -69,10 +69,10 @@ function loadChapters(bookKey) {
 	}
 	chapterString = chapterString.slice(0,-1);
 	$("#holder").append(chapterString);
-	
+
 }
 
-function loadVerses(chapterNum){
+window.loadVerses = function(chapterNum){
 	$.getJSON($SCRIPT_ROOT + '/get_verses', {
 		book : currentBookObject.book_id,
 		chapter_id : chapterNum+1
