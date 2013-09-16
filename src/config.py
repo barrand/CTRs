@@ -46,8 +46,8 @@ SCRIPTS = {
       'lib/bootstrap/js/tooltip.js',
     ],
     'scripture': [
-      'src/coffee/scripture_objects.js',
-      'src/coffee/scripture_navigation.js',
+      'src/coffee/scriptureobjects.js',
+      'src/coffee/scripturenavigation.js',
     ],    
     'scripts': [
       'src/coffee/common/util.coffee',
