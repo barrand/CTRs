@@ -1,4 +1,4 @@
-var volumesArray = [
+window.volumesArray = [
 				  {
 				    "volume_id":1,
 				    "volume_title":"Old Testament",
@@ -29,7 +29,7 @@ var volumesArray = [
 
 
 
-var otBooks = [
+window.otBooks = [
                {
             	    "book_id":1,
             	    "book_title":"Genesis",
@@ -232,7 +232,7 @@ var otBooks = [
             	  }
             	  ]
 
-var ntBooks = [
+window.ntBooks = [
             	  {
             	    "book_id":41,
             	    "book_title":"Mark",
@@ -364,7 +364,7 @@ var ntBooks = [
             	    "num_chapters":22
             	  }]
 
-var bomBooks = [
+window.bomBooks = [
             	  {
             	    "book_id":67,
             	    "book_title":"1 Nephi",
@@ -440,15 +440,15 @@ var bomBooks = [
             	    "book_title":"Moroni",
             	    "num_chapters":10
             	  }]
-            	  
-var dcBooks = [
+
+window.dcBooks = [
             	  {
             	    "book_id":82,
             	    "book_title":"Doctrine and Covenants",
             	    "num_chapters":138
             	  }]
 
-var pgpBooks = [
+window.pgpBooks = [
             	  {
             	    "book_id":83,
             	    "book_title":"Moses",

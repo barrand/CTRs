@@ -31,7 +31,6 @@ STYLES = [
 
 SCRIPTS_MODULES = [
     'libs',
-    'scripture',
     'scripts',
   ]
 
@@ -45,10 +44,6 @@ SCRIPTS = {
       'lib/bootstrap/js/dropdown.js',
       'lib/bootstrap/js/tooltip.js',
     ],
-    'scripture': [
-      'src/coffee/scriptureobjects.js',
-      'src/coffee/scripturenavigation.js',
-    ],    
     'scripts': [
       'src/coffee/common/util.coffee',
       'src/coffee/common/service.coffee',
@@ -56,5 +51,8 @@ SCRIPTS = {
       'src/coffee/site/app.coffee',
       'src/coffee/site/profile.coffee',
       'src/coffee/site/admin.coffee',
+
+      'src/coffee/scriptureobjects.js',
+      'src/coffee/scripturenavigation.js',
     ],
   }
