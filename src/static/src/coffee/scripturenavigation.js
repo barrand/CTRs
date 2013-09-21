@@ -18,8 +18,6 @@ window.loadVolumes = function() {
 	});
 }
 
-
-
 window.loadBooks = function(volumeKey) {
 	$("#navigationholder").empty();
 
@@ -64,25 +62,32 @@ window.loadChapters = function(bookKey) {
 	chapterString = "";
 	for ( var i = 0; i < currentBookObject.num_chapters; i++) {
 		displayNum = i + 1;
-		string = " <a href='javascript:loadVerses("+i+");'>" + displayNum + "</a>   -";
+		string = " <a href='javascript:loadVerses(" + i + ");'>" + displayNum
+				+ "</a>   -";
 		chapterString += string;
 	}
-	chapterString = chapterString.slice(0,-1);
+	chapterString = chapterString.slice(0, -1);
 	$("#navigationholder").append(chapterString);
 
 }
 
-window.verseMouseOver = function(div){
-//	alert('mouse over ' + div);
-	div.style.backgroundColor = 'green';
+window.verseClick = function(div) {
+	alert('mouse over ' + div);
+	div.style.backgroundColor = '#cccccc';
 }
 
-window.verseMouseOut = function(div){
-//	alert('mouse over ' + div);
+window.verseMouseOver = function(div) {
+	// alert('mouse over ' + div);
+	div.style.backgroundColor = '#cccccc';
+	div.style.cursor="pointer"
+}
+
+window.verseMouseOut = function(div) {
+	// alert('mouse over ' + div);
 	div.style.backgroundColor = 'white';
 }
 
-window.loadVerses = function(chapterNum){
+window.loadVerses = function(chapterNum) {
 	// deal with the breadcrumbs
 	$("#breadcrumb").empty();
 	crumbString1 = "<li><a href='javascript:loadVolumes();'>  Scriptures </li>";
@@ -95,20 +100,34 @@ window.loadVerses = function(chapterNum){
 	$("#breadcrumb").append(crumbString2);
 	$("#breadcrumb").append(crumbString3);
 	$("#breadcrumb").append(crumbString4);
-	
-	$.getJSON($SCRIPT_ROOT + '/get_verses', {
-		book : currentBookObject.book_id,
-		chapter_id : chapterNum+1
-	}, function(data) {
-		$("#navigationholder").empty();
-		$.each(data, function(){
-//			alert('data ' + this.verse_scripture);
-			scriptureString = "<div onmouseover='verseMouseOver(this)' onmouseout='verseMouseOut(this)'><p>"+this.verse+". "+this.verse_scripture+"</p></div>"
-			$("#navigationholder").append(scriptureString);
-		});
-	});
-}
 
+	$
+			.getJSON(
+					$SCRIPT_ROOT + '/get_verses',
+					{
+						book : currentBookObject.book_id,
+						chapter_id : chapterNum + 1
+					},
+					function(data) {
+						$("#navigationholder").empty();
+						$
+								.each(
+										data,
+										function() {
+											// alert('data ' +
+											// this.verse_scripture);
+											scriptureString = "<div "
+													+ "onmouseover='verseMouseOver(this)' "
+													+ "onmouseout='verseMouseOut(this)' "
+													+ "onclick='verseClick(this)' >"
+													+ this.verse + ". "
+													+ this.verse_scripture
+													+ "</div><br>"
+											$("#navigationholder").append(
+													scriptureString);
+										});
+					});
+}
 
 // the on ready function
 $(document).ready(function() {
