@@ -4,7 +4,7 @@ window.currentVolumeKey = "";
 window.currentChapter = -1;
 
 window.loadVolumes = function() {
-	$("#holder").empty();
+	$("#navigationholder").empty();
 
 	// deal with the breadcrumbs
 	$("#breadcrumb").empty();
@@ -14,14 +14,14 @@ window.loadVolumes = function() {
 	$.each(volumesArray, function(key, value) {
 		string = "<a href='javascript:loadBooks(" + key + ");'>"
 				+ value.volume_title + "</a><br>";
-		$("#holder").append(string);
+		$("#navigationholder").append(string);
 	});
 }
 
 
 
 window.loadBooks = function(volumeKey) {
-	$("#holder").empty();
+	$("#navigationholder").empty();
 
 	currentVolumeObject = volumesArray[volumeKey];
 	currentVolumeKey = volumeKey;
@@ -39,13 +39,13 @@ window.loadBooks = function(volumeKey) {
 	$.each(currentVolumeBookArray, function(key, value) {
 		string = "<a href='javascript:loadChapters(" + key + ");'>"
 				+ value.book_title + "</a><br>";
-		$("#holder").append(string);
+		$("#navigationholder").append(string);
 	});
 
 }
 
 window.loadChapters = function(bookKey) {
-	$("#holder").empty();
+	$("#navigationholder").empty();
 
 	currentBookObject = currentVolumeBookArray[bookKey];
 	currentBookKey = bookKey;
@@ -68,8 +68,18 @@ window.loadChapters = function(bookKey) {
 		chapterString += string;
 	}
 	chapterString = chapterString.slice(0,-1);
-	$("#holder").append(chapterString);
+	$("#navigationholder").append(chapterString);
 
+}
+
+window.verseMouseOver = function(div){
+//	alert('mouse over ' + div);
+	div.style.backgroundColor = 'green';
+}
+
+window.verseMouseOut = function(div){
+//	alert('mouse over ' + div);
+	div.style.backgroundColor = 'white';
 }
 
 window.loadVerses = function(chapterNum){
@@ -77,11 +87,11 @@ window.loadVerses = function(chapterNum){
 		book : currentBookObject.book_id,
 		chapter_id : chapterNum+1
 	}, function(data) {
-		$("#holder").empty();
+		$("#navigationholder").empty();
 		$.each(data, function(){
 //			alert('data ' + this.verse_scripture);
-			scriptureString = "<p>"+this.verse+". "+this.verse_scripture+"</p>"
-			$("#holder").append(scriptureString);
+			scriptureString = "<div onmouseover='verseMouseOver(this)' onmouseout='verseMouseOut(this)'><p>"+this.verse+". "+this.verse_scripture+"</p></div>"
+			$("#navigationholder").append(scriptureString);
 		});
 	});
 }

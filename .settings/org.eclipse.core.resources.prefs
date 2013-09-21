@@ -4,6 +4,7 @@ encoding//src/auth.py=utf-8
 encoding//src/config.py=utf-8
 encoding//src/lib/flask/app.py=utf-8
 encoding//src/lib/flask/config.py=utf-8
+encoding//src/lib/flask/helpers.py=utf-8
 encoding//src/lib/flask/json.py=utf-8
 encoding//src/lib/werkzeug/contrib/wrappers.py=utf-8
 encoding//src/main.py=utf-8
