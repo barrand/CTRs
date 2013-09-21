@@ -83,6 +83,19 @@ window.verseMouseOut = function(div){
 }
 
 window.loadVerses = function(chapterNum){
+	// deal with the breadcrumbs
+	$("#breadcrumb").empty();
+	crumbString1 = "<li><a href='javascript:loadVolumes();'>  Scriptures </li>";
+	crumbString2 = "<li><a href='javascript:loadBooks(" + currentVolumeKey
+			+ ");'>  " + currentVolumeObject.volume_title + " </li>";
+	crumbString3 = "<li><a href='javascript:loadChapters(" + currentBookKey
+			+ ");'>  " + currentBookObject.book_title + " </li>";
+	crumbString4 = "<li> " + chapterNum + " </li>";
+	$("#breadcrumb").append(crumbString1);
+	$("#breadcrumb").append(crumbString2);
+	$("#breadcrumb").append(crumbString3);
+	$("#breadcrumb").append(crumbString4);
+	
 	$.getJSON($SCRIPT_ROOT + '/get_verses', {
 		book : currentBookObject.book_id,
 		chapter_id : chapterNum+1

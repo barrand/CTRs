@@ -59,33 +59,33 @@ def book():
     print '--, ', len(book_dbs);
     return string
 
-@app.route('/verse_loader', methods=['GET'])
+@app.route('/verse_loader/<int:verse_id_to_start>', methods=['GET'])
 @auth.login_required
-def verse():
+def verse(verse_id_to_start):
     url = 'https://dl.dropboxusercontent.com/u/70607137/9%3A13/lds_scriptures_verses.json'
     site = urllib2.urlopen(url)
+    
+    
     verses = json.load(site)
     for v in verses:
-      query = model.Verse.query(model.Verse.verse_id == v['verse_id']);
-      existing_verse = query.fetch();
-      print "existing verse ?", existing_verse
+#       query = model.Verse.query(model.Verse.verse_id == v['verse_id']);
+#       existing_verse = query.fetch();
+#       print "existing verse ?", existing_verse
       #if we dont already have  
-      if len(existing_verse) == 0:
+#       if len(existing_verse) == 0:
+      if v['verse_id'] >= verse_id_to_start:
         verse_db = model.Verse(
-                                 verse_id=v['verse_id'],
-                                 volume_id=v['volume_id'],
-                                 book_id=v['book_id'],
-                                 chapter=v['chapter'],
-                                 verse=v['verse'],
-                                 verse_scripture=v['verse_scripture'],
-                                 )
+                                   verse_id=v['verse_id'],
+                                   volume_id=v['volume_id'],
+                                   book_id=v['book_id'],
+                                   chapter=v['chapter'],
+                                   verse=v['verse'],
+                                   verse_scripture=v['verse_scripture'],
+                                   )
         verse_db.put();
         print "saved new verse ", v['verse_id']
-      else:
-        print "didn't need to save ", v['verse_id']
       
     string = ""
-    verse_dbs = util.retrieve_dbs(model.Verse.query())
-    print 'finished total dbs: ', len(verse_dbs);
+    print 'finished importing: ';
     return string
   
