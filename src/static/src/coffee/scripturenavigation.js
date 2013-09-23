@@ -43,6 +43,7 @@ window.loadBooks = function(volumeKey) {
 }
 
 window.loadChapters = function(bookKey) {
+	alert("pass this in to load chapters " + bookKey)
 	$("#navigationholder").empty();
 
 	currentBookObject = currentVolumeBookArray[bookKey];
@@ -79,7 +80,7 @@ window.verseClick = function(div) {
 window.verseMouseOver = function(div) {
 	// alert('mouse over ' + div);
 	div.style.backgroundColor = '#cccccc';
-	div.style.cursor="pointer"
+	div.style.cursor = "pointer"
 }
 
 window.verseMouseOut = function(div) {
@@ -101,35 +102,33 @@ window.loadVerses = function(chapterNum) {
 	$("#breadcrumb").append(crumbString3);
 	$("#breadcrumb").append(crumbString4);
 
-	$
-			.getJSON(
-					$SCRIPT_ROOT + '/get_verses',
-					{
-						book : currentBookObject.book_id,
-						chapter_id : chapterNum + 1
-					},
-					function(data) {
-						$("#navigationholder").empty();
-						$
-								.each(
-										data,
-										function() {
-											// alert('data ' +
-											// this.verse_scripture);
-											scriptureString = "<div "
-													+ "onmouseover='verseMouseOver(this)' "
-													+ "onmouseout='verseMouseOut(this)' "
-													+ "onclick='verseClick(this)' >"
-													+ this.verse + ". "
-													+ this.verse_scripture
-													+ "</div><br>"
-											$("#navigationholder").append(
-													scriptureString);
-										});
-					});
+	$.getJSON($SCRIPT_ROOT + '/get_verses', {
+		book : currentBookObject.book_id,
+		chapter_id : chapterNum + 1
+	}, function(data) {
+		$("#navigationholder").empty();
+		$.each(data, function() {
+			// alert('data ' +
+			// this.verse_scripture);
+			scriptureString = "<div " + "onmouseover='verseMouseOver(this)' "
+					+ "onmouseout='verseMouseOut(this)' "
+					+ "onclick='verseClick(this)' >" + this.verse + ". "
+					+ this.verse_scripture + "</div><br>"
+			$("#navigationholder").append(scriptureString);
+		});
+	});
 }
 
 // the on ready function
 $(document).ready(function() {
-	loadVolumes();
+	if (window.chapter_num != "None") {
+		alert("load chapters " + window.chapter_num);
+	} else if (window.book_name != "None") {
+		alert("got a book, load by book " + window.book_name);
+		window.loadChapters(window.book_name);
+	}else if (window.volume_name != "None") {
+		window.loadBooks(window.volumeKeyByName[window.volume_name]);
+	} else {
+		loadVolumes();
+	}
 });
