@@ -1,4 +1,3 @@
-window.currentVolumeBookArray = "";
 window.currentVolumeObject = "";
 window.currentVolumeKey = "";
 window.currentChapter = -1;
@@ -11,8 +10,9 @@ window.loadVolumes = function() {
 	crumbString = "<li><a href='javascript:loadVolumes();'>  Scriptures  </a><span class='divider'>/</span></li>";
 	$("#breadcrumb").append(crumbString);
 
-	$.each(volumesArray, function(key, value) {
-		string = "<a href='javascript:loadBooks(" + key + ");'>"
+	$.each(window.volumesObjects, function(key, value) {
+		keyString = '"'+key+'"';
+		string = "<a href='javascript:loadBooks(" + keyString + ");'>"
 				+ value.volume_title + "</a><br>";
 		$("#navigationholder").append(string);
 	});
@@ -21,41 +21,47 @@ window.loadVolumes = function() {
 window.loadBooks = function(volumeKey) {
 	$("#navigationholder").empty();
 
-	currentVolumeObject = volumesArray[volumeKey];
+	currentVolumeObject = window.volumesObjects[volumeKey];
 	currentVolumeKey = volumeKey;
 
 	// deal with the breadcrumbs
 	$("#breadcrumb").empty();
 	crumbString1 = "<li><a href='javascript:loadVolumes();'>  Scriptures </li>";
-	crumbString2 = "<li><a href='javascript:loadBooks(" + volumeKey + ");'>  "
+	keyString = '"'+currentVolumeKey+'"';
+	crumbString2 = "<li><a href='javascript:loadBooks(" + keyString + ");'>  "
 			+ currentVolumeObject.volume_title + " </li>";
 	$("#breadcrumb").append(crumbString1);
 	$("#breadcrumb").append(crumbString2);
 
 	// the json array of books for the selected volume
-	currentVolumeBookArray = eval(currentVolumeObject.book_key)
-	$.each(currentVolumeBookArray, function(key, value) {
-		string = "<a href='javascript:loadChapters(" + key + ");'>"
+	$.each(currentVolumeObject.books, function(key, value) {
+		volKeyString = '"'+currentVolumeKey+'"';
+		bookKeyString = '"'+key+'"';
+		string = "<a href='javascript:loadChapters(" + volKeyString + ", "+ bookKeyString +");'>"
 				+ value.book_title + "</a><br>";
 		$("#navigationholder").append(string);
 	});
 
 }
 
-window.loadChapters = function(bookKey) {
-	alert("pass this in to load chapters " + bookKey)
+window.loadChapters = function(volumeKey, bookKey) {
 	$("#navigationholder").empty();
-
-	currentBookObject = currentVolumeBookArray[bookKey];
+	currentVolumeObject = window.volumesObjects[volumeKey];
+	currentVolumeKey = volumeKey;
+	
+	currentBookObject = currentVolumeObject.books[bookKey];
 	currentBookKey = bookKey;
 
 	// deal with the breadcrumbs
 	$("#breadcrumb").empty();
 	crumbString1 = "<li><a href='javascript:loadVolumes();'>  Scriptures </li>";
-	crumbString2 = "<li><a href='javascript:loadBooks(" + currentVolumeKey
-			+ ");'>  " + currentVolumeObject.volume_title + " </li>";
-	crumbString3 = "<li><a href='javascript:loadChapters(" + currentBookKey
-			+ ");'>  " + currentBookObject.book_title + " </li>";
+	keyString = '"'+currentVolumeKey+'"';
+	crumbString2 = "<li><a href='javascript:loadBooks(" + keyString + ");'>  "
+		+ currentVolumeObject.volume_title + " </li>";
+	
+	volKeyString = '"'+currentVolumeKey+'"';
+	bookKeyString = '"'+currentBookKey+'"';
+	crumbString3 = "<li><a href='javascript:loadChapters(" + volKeyString + ", "+ bookKeyString +");'>  " + currentBookObject.book_title + " </li>";
 	$("#breadcrumb").append(crumbString1);
 	$("#breadcrumb").append(crumbString2);
 	$("#breadcrumb").append(crumbString3);
@@ -63,7 +69,7 @@ window.loadChapters = function(bookKey) {
 	chapterString = "";
 	for ( var i = 0; i < currentBookObject.num_chapters; i++) {
 		displayNum = i + 1;
-		string = " <a href='javascript:loadVerses(" + i + ");'>" + displayNum
+		string = " <a href='javascript:loadVerses(" + volKeyString + ", "+ bookKeyString +", " + i + ");'>" + displayNum
 				+ "</a>   -";
 		chapterString += string;
 	}
@@ -72,31 +78,28 @@ window.loadChapters = function(bookKey) {
 
 }
 
-window.verseClick = function(div) {
-	alert('mouse over ' + div);
-	div.style.backgroundColor = '#cccccc';
-}
+window.loadVerses = function(volumeKey, bookKey, chapterNum) {
+	$("#navigationholder").empty();
+	currentVolumeObject = window.volumesObjects[volumeKey];
+	currentVolumeKey = volumeKey;
+	
+	currentBookObject = currentVolumeObject.books[bookKey];
+	currentBookKey = bookKey;
 
-window.verseMouseOver = function(div) {
-	// alert('mouse over ' + div);
-	div.style.backgroundColor = '#cccccc';
-	div.style.cursor = "pointer"
-}
-
-window.verseMouseOut = function(div) {
-	// alert('mouse over ' + div);
-	div.style.backgroundColor = 'white';
-}
-
-window.loadVerses = function(chapterNum) {
 	// deal with the breadcrumbs
 	$("#breadcrumb").empty();
 	crumbString1 = "<li><a href='javascript:loadVolumes();'>  Scriptures </li>";
-	crumbString2 = "<li><a href='javascript:loadBooks(" + currentVolumeKey
-			+ ");'>  " + currentVolumeObject.volume_title + " </li>";
-	crumbString3 = "<li><a href='javascript:loadChapters(" + currentBookKey
-			+ ");'>  " + currentBookObject.book_title + " </li>";
-	crumbString4 = "<li> " + chapterNum + " </li>";
+	keyString = '"'+currentVolumeKey+'"';
+	crumbString2 = "<li><a href='javascript:loadBooks(" + keyString + ");'>  "
+		+ currentVolumeObject.volume_title + " </li>";
+	
+	volKeyString = '"'+currentVolumeKey+'"';
+	bookKeyString = '"'+currentBookKey+'"';
+	crumbString3 = "<li><a href='javascript:loadChapters(" + volKeyString + ", "
+		+ bookKeyString +");'>  " 
+		+ currentBookObject.book_title 
+		+ " </li>";
+	crumbString4 = "<li> " + eval(chapterNum+1) + " </li>";
 	$("#breadcrumb").append(crumbString1);
 	$("#breadcrumb").append(crumbString2);
 	$("#breadcrumb").append(crumbString3);
@@ -117,6 +120,22 @@ window.loadVerses = function(chapterNum) {
 			$("#navigationholder").append(scriptureString);
 		});
 	});
+}
+
+window.verseClick = function(div) {
+	alert('mouse over ' + div);
+	div.style.backgroundColor = '#cccccc';
+}
+
+window.verseMouseOver = function(div) {
+	// alert('mouse over ' + div);
+	div.style.backgroundColor = '#cccccc';
+	div.style.cursor = "pointer"
+}
+
+window.verseMouseOut = function(div) {
+	// alert('mouse over ' + div);
+	div.style.backgroundColor = 'white';
 }
 
 // the on ready function
