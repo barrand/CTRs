@@ -99,7 +99,8 @@ window.loadVerses = function(volumeKey, bookKey, chapterNum) {
 		+ bookKeyString +");'>  " 
 		+ currentBookObject.book_title 
 		+ " </li>";
-	crumbString4 = "<li> " + eval(chapterNum+1) + " </li>";
+	chapterInt = parseInt(chapterNum)+1
+	crumbString4 = "<li> " + chapterInt + " </li>";
 	$("#breadcrumb").append(crumbString1);
 	$("#breadcrumb").append(crumbString2);
 	$("#breadcrumb").append(crumbString3);
@@ -107,7 +108,7 @@ window.loadVerses = function(volumeKey, bookKey, chapterNum) {
 
 	$.getJSON($SCRIPT_ROOT + '/get_verses', {
 		book : currentBookObject.book_id,
-		chapter_id : chapterNum + 1
+		chapter_id : parseInt(chapterNum) + 1
 	}, function(data) {
 		$("#navigationholder").empty();
 		$.each(data, function() {
@@ -140,13 +141,13 @@ window.verseMouseOut = function(div) {
 
 // the on ready function
 $(document).ready(function() {
-	if (window.chapter_num != "None") {
-		alert("load chapters " + window.chapter_num);
-	} else if (window.book_name != "None") {
-		alert("got a book, load by book " + window.book_name);
-		window.loadChapters(window.book_name);
-	}else if (window.volume_name != "None") {
-		window.loadBooks(window.volumeKeyByName[window.volume_name]);
+	if (chapter_num != "None" && book_name != "None" && volume_name != "None") {
+		chapterInt = parseInt(chapter_num)-1;
+		loadVerses(volume_name, book_name, chapterInt);
+	} else if (book_name != "None" && volume_name != "None") {
+		loadChapters(volume_name, book_name);
+	}else if (volume_name != "None") {
+		loadBooks(volume_name);
 	} else {
 		loadVolumes();
 	}
