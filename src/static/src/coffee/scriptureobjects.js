@@ -1,10 +1,3 @@
-window.volumeKeyByName = {"ot":0,"nt":1,"bm":2,"dc":3,"pgp":4};
-window.bookIndexByNameOt = ['gen','ex','lev','num','deut','josh','judg','ruth','1_sam','2_sam','1_kgs','2_kgs','1_chr','2_chr','ezra','neh','esth','job','ps','prov','eccl','song','isa','jer','lam','ezek','dan','hosea','joel','amos','obad','jonah','micah','nahum','hab','zeph','hag','zech','mal'];
-window.bookIndexByNameNt = ['matt','mark','luke','john','acts','rom','1_cor','2_cor','gal','eph','philip','col','1_thes','2_thes','1_tim','2_tim','titus','philem','heb','james','1_pet','2_pet','1_jn','2_jn','3_jn','jude','rev'];
-window.bookIndexByNameBm = ['1_ne','2_ne','jacob','enos','jarom','omni','w_of_m','mosiah','alma','hel','3_ne','4_ne','morm','ether','moro'];
-window.bookIndexByNameDc = ['dc'];
-window.bookIndexByNamePgp = ['moses','abr','js_m','js_h','a_of_f'];
-
 window.volumesObjects = {"ot":{
 	volume_id:1,
 	volume_title:"Old Testament",
@@ -21,9 +14,6 @@ window.volumesObjects = {"ot":{
 	volume_id:5,
 	volume_title:"Pearl of Great Price",
 } };
-
-
-
 
 window.volumesObjects.ot.books = { "gen":{
 	"book_id" : 1,
