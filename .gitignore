@@ -1,13 +1,10 @@
-*.py[cod]
-
-# C extensions
-*.so
-
-# Installer logs
-pip-log.txt
-
 *.db
-
-temp/*
-
 *.db-journal
+*.py[cod]
+*.so
+pip-log.txt
+src/lib.zip
+src/node_modules
+src/static/dst
+src/static/min
+temp/*
