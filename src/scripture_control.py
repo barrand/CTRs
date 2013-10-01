@@ -18,7 +18,7 @@ def scriptures():
 #   volume_dbs, more_cursor = util.retrieve_dbs(model.Volume.query(), order='volume_id')
   return flask.render_template(
                                'scripture_selector.html',
-                               html_class='scripture',
+                               html_class='scriptures',
                                title='Scripture Selector',
                                volume_name= 'None',
                                book_name= 'None',
@@ -63,17 +63,6 @@ def scriptures_chapter(volume_name, book_name, chapter_num):
                                book_name=book_name,
                                chapter_num=chapter_num)
   
-@app.route('/dontuseme/')
-@auth.login_required
-def scripture():
-  
-  #don't use this function!!!
-  return flask.render_template(
-                               'scripture_selector.html',
-                               html_class='scripture',
-                               title='Scripture Selector',)
-
-
 @app.route('/get_verses/')
 @auth.login_required
 def get_verses():
