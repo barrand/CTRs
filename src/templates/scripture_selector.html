@@ -1,5 +1,4 @@
 #extends 'base.html'
-
 # block content
 <div class="page-header">
 	<h1>{{title}}</h1>
@@ -17,7 +16,18 @@
 			<li><a href=''>{{chapterNum}}</a></li>
 		# endif
 	</ul>
-	<div id=navigationholder ></div>
+	<div id=navigationholder >
+		# if not selectedVolume
+			{% for volume in volumesObjects %}
+  				<a href="">{{volumesObjects[volume].volume_title}}</a><br>
+			{% endfor %}
+		# endif
+		# if selectedVolume and not selectedBook
+			{% for book in selectedVolume['books'] %}
+  				<a href="">{{selectedVolume['books'][book].book_title}}</a><br>
+			{% endfor %}
+		# endif
+	</div>
 </div>
 # endblock	
 		

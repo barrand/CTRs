@@ -20,7 +20,8 @@ def scriptures():
   return flask.render_template(
                                'scripture_selector.html',
                                html_class='scriptures',
-                               title='Scripture Selector')
+                               title='Scripture Selector',
+                               volumesObjects=volumesObjects)
   
 @app.route('/scriptures/<volume_name>/')
 @auth.login_required
