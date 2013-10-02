@@ -5,6 +5,7 @@ from main import app
 import util
 from flask import jsonify, request, Response  # @UnresolvedImport
 import json  # @UnresolvedImport
+from scripture_objects import volumesObjects;
 
 @app.route('/_add_numbers')
 def add_numbers():
@@ -19,49 +20,58 @@ def scriptures():
   return flask.render_template(
                                'scripture_selector.html',
                                html_class='scriptures',
-                               title='Scripture Selector',
-                               volume_name= 'None',
-                               book_name= 'None',
-                               chapter_num= 'None')
+                               title='Scripture Selector')
   
 @app.route('/scriptures/<volume_name>/')
 @auth.login_required
 def scriptures_volume(volume_name):
-  print volume_name;
 #   volume_dbs, more_cursor = util.retrieve_dbs(model.Volume.query(), order='volume_id')
+  selectedVolume = volumesObjects[volume_name]
   return flask.render_template(
                                'scripture_selector.html',
                                html_class='scripture',
                                title='Scripture Selector',
-                               volume_name=volume_name,
-                               book_name= 'None',
-                               chapter_num= 'None')
+                               selectedVolume=selectedVolume)
 
 @app.route('/scriptures/<volume_name>/<book_name>/')
 @auth.login_required
 def scriptures_book(volume_name, book_name):
   print volume_name, book_name;
-#   volume_dbs, more_cursor = util.retrieve_dbs(model.Volume.query(), order='volume_id')
+  selectedVolume = volumesObjects[volume_name]
+  selectedBook = selectedVolume["books"][book_name]
   return flask.render_template(
                                'scripture_selector.html',
                                html_class='scripture',
                                title='Scripture Selector',
-                               volume_name=volume_name,
-                               book_name=book_name,
-                               chapter_num= 'None')
+                               selectedVolume=selectedVolume,
+                               selectedBook=selectedBook)
 
 @app.route('/scriptures/<volume_name>/<book_name>/<int:chapter_num>')
 @auth.login_required
 def scriptures_chapter(volume_name, book_name, chapter_num):
-  print volume_name, book_name, chapter_num;
-#   volume_dbs, more_cursor = util.retrieve_dbs(model.Volume.query(), order='volume_id')
+  selectedVolume = volumesObjects[volume_name]
+  selectedBook = selectedVolume["books"][book_name]
   return flask.render_template(
                                'scripture_selector.html',
                                html_class='scripture',
                                title='Scripture Selector',
-                               volume_name=volume_name,
-                               book_name=book_name,
-                               chapter_num=chapter_num)
+                               selectedVolume=selectedVolume,
+                               selectedBook=selectedBook,
+                               chapterNum=chapter_num)
+
+@app.route('/scriptures/<volume_name>/<book_name>/<int:chapter_num>/<int:verse_num>')
+@auth.login_required
+def scriptures_verse(volume_name, book_name, chapter_num, verse_num):
+  selectedVolume = volumesObjects[volume_name]
+  selectedBook = selectedVolume["books"][book_name]
+  return flask.render_template(
+                               'scripture_selector.html',
+                               html_class='scripture',
+                               title='Scripture Selector',
+                               selectedVolume=selectedVolume,
+                               selectedBook=selectedBook,
+                               chapterNum=chapter_num,
+                               verseNum=verse_num)
   
 @app.route('/get_verses/')
 @auth.login_required

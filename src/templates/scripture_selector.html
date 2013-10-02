@@ -1,20 +1,25 @@
 #extends 'base.html'
 
 # block content
-<script type=text/javascript>
-window.volume_name = '{{volume_name}}'
-window.book_name = '{{book_name}}'
-window.chapter_num = '{{chapter_num}}'
-</script>
-<script src="/p/src/coffee/scriptureobjects.js"></script>
-<script src="/p/src/coffee/scripturenavigation.js"></script>
-	<div class="page-header">
-		<h1>{{title}}</h1>
-	</div>
+<div class="page-header">
+	<h1>{{title}}</h1>
+</div>
 <div id=leftcontent style="width:375px;">
 	<ul id=breadcrumb class="breadcrumb">
+		<li><a href=''>  Scriptures  </a></li>
+		# if selectedVolume
+			<li><a href=''>{{selectedVolume.volume_title}}</a></li>
+		# endif
+		# if selectedBook
+			<li><a href=''>{{selectedBook.book_title}}</a></li>
+		# endif
+		# if chapterNum
+			<li><a href=''>{{chapterNum}}</a></li>
+		# endif
 	</ul>
 	<div id=navigationholder ></div>
 </div>
 # endblock	
 		
+
+
