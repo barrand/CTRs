@@ -5,15 +5,15 @@
 </div>
 <div id=leftcontent style="width:375px;">
 	<ul id=breadcrumb class="breadcrumb">
-		<li><a href=''>  Scriptures  </a></li>
+		<li><a href='{{url_for("scriptures")}}'>  Scriptures  </a></li>
 		# if selectedVolume
-			<li><a href=''>{{selectedVolume.volume_title}}</a></li>
+			<li><a href='{{url_for("scriptures")}}{{volumeName}}'>{{selectedVolume.volume_title}}</a></li>
 		# endif
 		# if selectedBook
-			<li><a href=''>{{selectedBook.book_title}}</a></li>
+			<li><a href='{{url_for("scriptures")}}{{volumeName}}/{{bookName}}'>{{selectedBook.book_title}}</a></li>
 		# endif
 		# if chapterNum
-			<li><a href=''>{{chapterNum}}</a></li>
+			<li><a href='{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}'>{{chapterNum}}</a></li>
 		# endif
 	</ul>
 	<div id=navigationholder >

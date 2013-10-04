@@ -32,7 +32,8 @@ def scriptures_volume(volume_name):
                                'scripture_selector.html',
                                html_class='scripture',
                                title='Scripture Selector',
-                               selectedVolume=selectedVolume)
+                               selectedVolume=selectedVolume,
+                               volumeName=volume_name)
 
 @app.route('/scriptures/<volume_name>/<book_name>/')
 @auth.login_required
@@ -45,7 +46,9 @@ def scriptures_book(volume_name, book_name):
                                html_class='scripture',
                                title='Scripture Selector',
                                selectedVolume=selectedVolume,
-                               selectedBook=selectedBook)
+                               selectedBook=selectedBook,
+                               volumeName=volume_name,
+                               bookName=book_name)
 
 @app.route('/scriptures/<volume_name>/<book_name>/<int:chapter_num>')
 @auth.login_required
@@ -58,7 +61,9 @@ def scriptures_chapter(volume_name, book_name, chapter_num):
                                title='Scripture Selector',
                                selectedVolume=selectedVolume,
                                selectedBook=selectedBook,
-                               chapterNum=chapter_num)
+                               chapterNum=chapter_num,
+                               volumeName=volume_name,
+                               bookName=book_name)
 
 @app.route('/scriptures/<volume_name>/<book_name>/<int:chapter_num>/<int:verse_num>')
 @auth.login_required
