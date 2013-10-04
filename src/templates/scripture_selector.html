@@ -19,12 +19,20 @@
 	<div id=navigationholder >
 		# if not selectedVolume
 			{% for volume in volumesObjects %}
-  				<a href="">{{volumesObjects[volume].volume_title}}</a><br>
+  				<a href="{{url_for("scriptures")}}{{volume}}">{{volumesObjects[volume].volume_title}}</a><br>
 			{% endfor %}
 		# endif
 		# if selectedVolume and not selectedBook
 			{% for book in selectedVolume['books'] %}
-  				<a href="">{{selectedVolume['books'][book].book_title}}</a><br>
+  				<a href="{{url_for("scriptures")}}{{volumeName}}/{{book}}">{{selectedVolume['books'][book].book_title}}</a><br>
+			{% endfor %}
+		# endif
+		# if selectedBook and not chapterNum
+			{% for n in range (1, selectedBook.num_chapters+1) %}
+  				<a href="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{n}}">{{n}}</a>
+  				# if n < selectedBook.num_chapters
+  					- 
+  				# endif
 			{% endfor %}
 		# endif
 	</div>
