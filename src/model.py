@@ -79,29 +79,6 @@ class Contact(Base):
   address = ndb.StringProperty(default='')
   
 
-class Volume(Base):
-  volume_id = ndb.IntegerProperty(required=True)
-  volume_title = ndb.StringProperty(required=True)
-  volume_title_long = ndb.StringProperty(required=True)
-  volume_subtitle = ndb.StringProperty(required=True)
-  lds_org = ndb.StringProperty(required=True)
-  num_books = ndb.IntegerProperty(required=True)
-  num_chapters = ndb.IntegerProperty(required=True)
-  num_verses = ndb.IntegerProperty(required=True)
-
-
-class Book(Base):
-  book_id = ndb.IntegerProperty(required=True)
-  volume_id = ndb.IntegerProperty(required=True)
-  book_title = ndb.StringProperty(required=True)
-  book_title_long = ndb.StringProperty(required=True)
-  book_title_short = ndb.StringProperty(required=True)
-  book_title_jst = ndb.StringProperty(required=True)
-  book_subtitle = ndb.StringProperty(required=True)
-  lds_org = ndb.StringProperty(required=True)
-  num_chapters = ndb.IntegerProperty(required=True)
-  num_verses = ndb.IntegerProperty(required=True)
-
 class Verse(Base):
   verse_id = ndb.IntegerProperty(required=True)
   volume_id = ndb.IntegerProperty(required=True)

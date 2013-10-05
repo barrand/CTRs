@@ -7,12 +7,6 @@ from flask import jsonify, request, Response  # @UnresolvedImport
 import json  # @UnresolvedImport
 from scripture_objects import volumesObjects;
 
-@app.route('/_add_numbers')
-def add_numbers():
-    a = request.args.get('a', 0, type=int)
-    b = request.args.get('b', 0, type=int)
-    return jsonify(result=a + b)
-
 @app.route('/scriptures/')
 @auth.login_required
 def scriptures():
@@ -55,6 +49,11 @@ def scriptures_book(volume_name, book_name):
 def scriptures_chapter(volume_name, book_name, chapter_num):
   selectedVolume = volumesObjects[volume_name]
   selectedBook = selectedVolume["books"][book_name]
+  query = model.Verse.query(model.Verse.book_id == selectedBook['book_id'],
+                            model.Verse.chapter == chapter_num).order(model.Verse.verse_id)
+  verse_dbs = query.fetch()
+
+  print "dbs ", len(verse_dbs)
   return flask.render_template(
                                'scripture_selector.html',
                                html_class='scripture',
@@ -63,13 +62,15 @@ def scriptures_chapter(volume_name, book_name, chapter_num):
                                selectedBook=selectedBook,
                                chapterNum=chapter_num,
                                volumeName=volume_name,
-                               bookName=book_name)
+                               bookName=book_name,
+                               verse_dbs=verse_dbs)
 
 @app.route('/scriptures/<volume_name>/<book_name>/<int:chapter_num>/<int:verse_num>')
 @auth.login_required
 def scriptures_verse(volume_name, book_name, chapter_num, verse_num):
   selectedVolume = volumesObjects[volume_name]
   selectedBook = selectedVolume["books"][book_name]
+  
   return flask.render_template(
                                'scripture_selector.html',
                                html_class='scripture',

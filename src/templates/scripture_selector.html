@@ -35,6 +35,11 @@
   				# endif
 			{% endfor %}
 		# endif
+		# if verse_dbs and not selectedVerse
+			{% for verse in verse_dbs %}
+				<p>{{verse.verse}}. {{verse.verse_scripture}}<p>
+			{%endfor%}
+		# endif
 	</div>
 </div>
 # endblock	
