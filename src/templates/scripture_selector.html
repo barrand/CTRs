@@ -3,6 +3,16 @@
 <div class="page-header">
 	<h1>{{title}}</h1>
 </div>
+<style type="text/css">
+	.versespan {
+		display: block;
+  		text-decoration: none;
+	}
+	.verselink {
+  		color:#334422;
+  		text-decoration: none;
+	}
+</style>
 <div id=leftcontent style="width:375px;">
 	<ul id=breadcrumb class="breadcrumb">
 		<li><a href='{{url_for("scriptures")}}'>  Scriptures  </a></li>
@@ -37,7 +47,11 @@
 		# endif
 		# if verse_dbs and not selectedVerse
 			{% for verse in verse_dbs %}
-				<p>{{verse.verse}}. {{verse.verse_scripture}}<p>
+			<a class="verselink" style="text-decoration:none"  href="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}/{{verse.verse}}">
+				<span class="versespan">
+					{{verse.verse}}. {{verse.verse_scripture}}
+				</span>
+			</a><br>
 			{%endfor%}
 		# endif
 	</div>
