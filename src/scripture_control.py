@@ -53,7 +53,6 @@ def scriptures_chapter(volume_name, book_name, chapter_num):
                             model.Verse.chapter == chapter_num).order(model.Verse.verse_id)
   verse_dbs = query.fetch()
 
-  print "dbs ", len(verse_dbs)
   return flask.render_template(
                                'scripture_selector.html',
                                html_class='scripture',
@@ -71,6 +70,10 @@ def scriptures_verse(volume_name, book_name, chapter_num, verse_num):
   selectedVolume = volumesObjects[volume_name]
   selectedBook = selectedVolume["books"][book_name]
   
+  query = model.Verse.query(model.Verse.book_id == selectedBook['book_id'],
+                            model.Verse.chapter == chapter_num).order(model.Verse.verse_id)
+  verse_dbs = query.fetch()
+  
   return flask.render_template(
                                'scripture_selector.html',
                                html_class='scripture',
@@ -78,6 +81,9 @@ def scriptures_verse(volume_name, book_name, chapter_num, verse_num):
                                selectedVolume=selectedVolume,
                                selectedBook=selectedBook,
                                chapterNum=chapter_num,
+                               volumeName=volume_name,
+                               bookName=book_name,
+                               verse_dbs=verse_dbs,
                                verseNum=verse_num)
   
 @app.route('/get_verses/')

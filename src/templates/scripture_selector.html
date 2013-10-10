@@ -8,9 +8,21 @@
 		display: block;
   		text-decoration: none;
 	}
+	.versespan {
+		display: block;
+		padding: 5px;
+	}
 	.verselink {
   		color:#334422;
   		text-decoration: none;
+		padding: 0px;
+	}
+	.versediv{
+		padding: 0px;
+	}
+	.versedivselected{
+		background-color: #dddddd;
+		padding: 0px;
 	}
 </style>
 <div id=leftcontent style="width:375px;">
@@ -45,13 +57,16 @@
   				# endif
 			{% endfor %}
 		# endif
-		# if verse_dbs and not selectedVerse
+		# if verse_dbs
 			{% for verse in verse_dbs %}
-			<a class="verselink" style="text-decoration:none"  href="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}/{{verse.verse}}">
-				<span class="versespan">
-					{{verse.verse}}. {{verse.verse_scripture}}
-				</span>
-			</a><br>
+			<div class="versediv{%if verse.verse == verseNum %}selected{% endif %}">
+				<a class="verselink" style="text-decoration:none"  href="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}/{{verse.verse}}">
+					
+					<span class="versespan">
+						{{verse.verse}}. {{verse.verse_scripture}}
+					</span>
+				</a>
+			</div>
 			{%endfor%}
 		# endif
 	</div>
