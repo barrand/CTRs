@@ -24,6 +24,10 @@
 		background-color: #dddddd;
 		padding: 0px;
 	}
+	.navigationholder{
+		overflow:auto;
+		height:450px;
+	}
 </style>
 <div id=leftcontent style="width:375px;">
 	<ul id=breadcrumb class="breadcrumb">
@@ -38,7 +42,7 @@
 			<li><a href='{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}'>{{chapterNum}}</a></li>
 		# endif
 	</ul>
-	<div id=navigationholder >
+	<div id=navigationholder class="navigationholder">
 		# if not selectedVolume
 			{% for volume in volumesObjects %}
   				<a href="{{url_for("scriptures")}}{{volume}}">{{volumesObjects[volume].volume_title}}</a><br>
