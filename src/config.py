@@ -27,6 +27,7 @@ DEFAULT_DB_LIMIT = 64
 ################################################################################
 STYLES = [
     'src/less/style.less',
+    'src/less/ctrsstyles.css',
   ]
 
 SCRIPTS_MODULES = [
