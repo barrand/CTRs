@@ -1,4 +1,5 @@
 #extends 'base.html'
+# import 'macro/forms.html' as forms
 # block content
 <div class="page-header">
 	<h1>{{title}}</h1>
@@ -75,6 +76,26 @@
 		# endif
 	</div>
 </div>
+<div style="position:absolute;top:200px;right:450px">
+#if verseNum
+	<form class="form" method="POST" action="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}/{{verseNum}}">
+		<fieldset>
+		  {{form.csrf_token}}
+
+		  {{forms.text_field(form.comment)}}
+
+		  <button type="submit" class="btn btn-primary">
+		    Add Comment
+		  </button>
+		</fieldset>
+	</form>
+	# if comment_dbs
+		{% for c in comment_dbs %}
+			{{c.comment}}<br>
+		{% endfor %}
+	# endif
+</div>
+# endif
 # endblock	
 		
 

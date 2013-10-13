@@ -1,3 +1,4 @@
+from flaskext import wtf 
 import flask  # @UnresolvedImport
 import auth
 import model
@@ -64,7 +65,7 @@ def scriptures_chapter(volume_name, book_name, chapter_num):
                                bookName=book_name,
                                verse_dbs=verse_dbs)
 
-@app.route('/scriptures/<volume_name>/<book_name>/<int:chapter_num>/<int:verse_num>')
+@app.route('/scriptures/<volume_name>/<book_name>/<int:chapter_num>/<int:verse_num>', methods=['GET', 'POST'])
 @auth.login_required
 def scriptures_verse(volume_name, book_name, chapter_num, verse_num):
   selectedVolume = volumesObjects[volume_name]
@@ -73,7 +74,25 @@ def scriptures_verse(volume_name, book_name, chapter_num, verse_num):
   query = model.Verse.query(model.Verse.book_id == selectedBook['book_id'],
                             model.Verse.chapter == chapter_num).order(model.Verse.verse_id)
   verse_dbs = query.fetch()
+
+  verse_id = None
+  for tmpverse in verse_dbs:
+    if tmpverse.verse == verse_num:
+      verse_id = tmpverse.verse_id
   
+  form = CommentAddForm()
+  if form.validate_on_submit():
+    comment_db = model.Comment(
+        user_key=auth.current_user_key(),
+        comment=form.comment.data,
+        verse_id=verse_id,
+      )
+    comment_db.put()
+    flask.flash('New comment was successfuly created!', category='success')
+
+  query = model.Comment.query(model.Comment.verse_id == verse_id).order(-model.Verse.created)
+  comment_dbs = query.fetch()
+
   return flask.render_template(
                                'scripture_selector.html',
                                html_class='scripture',
@@ -84,8 +103,17 @@ def scriptures_verse(volume_name, book_name, chapter_num, verse_num):
                                volumeName=volume_name,
                                bookName=book_name,
                                verse_dbs=verse_dbs,
-                               verseNum=verse_num)
+                               verseNum=verse_num,
+                               form=form,
+                               comment_dbs=comment_dbs
+                               )
   
+
+class CommentAddForm(wtf.Form):
+  comment = wtf.TextField('Comment', [wtf.validators.required()])
+
+
+
 @app.route('/get_verses/')
 @auth.login_required
 def get_verses():
@@ -102,20 +130,8 @@ def get_verses():
     myArray.append(v.to_readable_dict())
   j = json.dumps(myArray)
   return j
-  
-@app.route('/volume/')
-@auth.login_required
-def volume_list():
-  volume_dbs, more_cursor = util.retrieve_dbs(
-                                               model.Volume.query()# @UndefinedVariable
-                                               )
-  return flask.render_template(
-                               'volume_list.html',
-                               html_class='volume-list',
-                               title='Volume List',
-                               volume_dbs=volume_dbs,
-                               more_url=util.generate_more_url(more_cursor),
-                               )
+
+
 
 @app.route('/verse/')
 @auth.login_required

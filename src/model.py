@@ -96,15 +96,15 @@ class Verse(Base):
     d['verse_scripture']= self.verse_scripture 
     return d
 
-# class Comment(Base):
-#   user_key = ndb.KeyProperty(kind=User, required=True)
-#   comment = ndb.StringProperty(required=True)
-#   tags = ndb.StringProperty(required=True)
-#   comment_type = ndb.StringProperty(required=True)
+class Comment(Base):
+  user_key = ndb.KeyProperty(kind=User, required=True)
+  comment = ndb.StringProperty(required=True)
+  like_count = ndb.IntegerProperty(required=False, default=0)
+  verse_id = ndb.IntegerProperty(required=True)
+  # tags = ndb.StringProperty(required=True)
+  # comment_type = ndb.StringProperty(required=True)
 #   response_to_comment = comment object
-#   like_count = ndb.IntegerProperty(required=false, default=0)
 #   active = ndb.BooleanProperty(default=True)
-#   post_date
-#   modified_date
+# references
 
   
