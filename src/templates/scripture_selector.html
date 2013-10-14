@@ -5,72 +5,74 @@
 	<h1>{{title}}</h1>
 </div>
 <style type="text/css" src="/p/src/less/ctrstyles.css"></style>
-<div id=leftcontent style="width:375px;">
-	<ul id=breadcrumb class="breadcrumb">
-		<li><a href='{{url_for("scriptures")}}'>  Scriptures  </a></li>
-		# if selectedVolume
-			<li><a href='{{url_for("scriptures")}}{{volumeName}}'>{{selectedVolume.volume_title}}</a></li>
-		# endif
-		# if selectedBook
-			<li><a href='{{url_for("scriptures")}}{{volumeName}}/{{bookName}}'>{{selectedBook.book_title}}</a></li>
-		# endif
-		# if chapterNum
-			<li><a href='{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}'>{{chapterNum}}</a></li>
-		# endif
-	</ul>
-	<div id=navigationholder class="navigationholder">
-		# if not selectedVolume
-			{% for volume in volumesObjects %}
-  				<a href="{{url_for("scriptures")}}{{volume}}">{{volumesObjects[volume].volume_title}}</a><br>
+<div class="row-fluid">
+    <div class="col-sm-5 col-md-5 col-lg-5">
+		<ul id=breadcrumb class="breadcrumb">
+			<li><a href='{{url_for("scriptures")}}'>  Scriptures  </a></li>
+			# if selectedVolume
+				<li><a href='{{url_for("scriptures")}}{{volumeName}}'>{{selectedVolume.volume_title}}</a></li>
+			# endif
+			# if selectedBook
+				<li><a href='{{url_for("scriptures")}}{{volumeName}}/{{bookName}}'>{{selectedBook.book_title}}</a></li>
+			# endif
+			# if chapterNum
+				<li><a href='{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}'>{{chapterNum}}</a></li>
+			# endif
+		</ul>
+		<div id=navigationholder class="navigationholder">
+			# if not selectedVolume
+				{% for volume in volumesObjects %}
+	  				<a href="{{url_for("scriptures")}}{{volume}}">{{volumesObjects[volume].volume_title}}</a><br>
+				{% endfor %}
+			# endif
+			# if selectedVolume and not selectedBook
+				{% for book in selectedVolume['books'] %}
+	  				<a href="{{url_for("scriptures")}}{{volumeName}}/{{book}}">{{selectedVolume['books'][book].book_title}}</a><br>
+				{% endfor %}
+			# endif
+			# if selectedBook and not chapterNum
+				{% for n in range (1, selectedBook.num_chapters+1) %}
+	  				<a href="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{n}}">{{n}}</a>
+	  				# if n < selectedBook.num_chapters
+	  					- 
+	  				# endif
+				{% endfor %}
+			# endif
+			# if verse_dbs
+				{% for verse in verse_dbs %}
+				<div class="versediv{%if verse.verse == verseNum %}selected{% endif %}">
+					<a class="verselink" style="text-decoration:none"  href="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}/{{verse.verse}}">
+						
+						<span class="versespan">
+							{{verse.verse}}. {{verse.verse_scripture}}
+						</span>
+					</a>
+				</div>
+				{%endfor%}
+			# endif
+		</div>
+	</div>
+    <div class="col-sm-7 col-md-7 col-lg-7">
+	#if verseNum
+		<form class="form" method="POST" action="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}/{{verseNum}}">
+			<fieldset>
+			  {{form.csrf_token}}
+
+			  {{forms.text_field(form.comment)}}
+
+			  <button type="submit" class="btn btn-primary">
+			    Add Comment
+			  </button>
+			</fieldset>
+		</form>
+		# if comment_dbs
+			{% for c in comment_dbs %}
+				{{c.comment}}<br>
 			{% endfor %}
-		# endif
-		# if selectedVolume and not selectedBook
-			{% for book in selectedVolume['books'] %}
-  				<a href="{{url_for("scriptures")}}{{volumeName}}/{{book}}">{{selectedVolume['books'][book].book_title}}</a><br>
-			{% endfor %}
-		# endif
-		# if selectedBook and not chapterNum
-			{% for n in range (1, selectedBook.num_chapters+1) %}
-  				<a href="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{n}}">{{n}}</a>
-  				# if n < selectedBook.num_chapters
-  					- 
-  				# endif
-			{% endfor %}
-		# endif
-		# if verse_dbs
-			{% for verse in verse_dbs %}
-			<div class="versediv{%if verse.verse == verseNum %}selected{% endif %}">
-				<a class="verselink" style="text-decoration:none"  href="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}/{{verse.verse}}">
-					
-					<span class="versespan">
-						{{verse.verse}}. {{verse.verse_scripture}}
-					</span>
-				</a>
-			</div>
-			{%endfor%}
 		# endif
 	</div>
-</div>
-<div style="position:absolute;top:200px;right:450px">
-#if verseNum
-	<form class="form" method="POST" action="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}/{{verseNum}}">
-		<fieldset>
-		  {{form.csrf_token}}
-
-		  {{forms.text_field(form.comment)}}
-
-		  <button type="submit" class="btn btn-primary">
-		    Add Comment
-		  </button>
-		</fieldset>
-	</form>
-	# if comment_dbs
-		{% for c in comment_dbs %}
-			{{c.comment}}<br>
-		{% endfor %}
 	# endif
 </div>
-# endif
 # endblock	
 		
 
