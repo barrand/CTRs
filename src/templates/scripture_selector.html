@@ -1,5 +1,4 @@
-#extends 'base.html'
-# import 'macro/forms.html' as forms
+# extends 'base.html'
 # block content
 <div class="page-header">
 	<h1>{{title}}</h1>
@@ -7,98 +6,11 @@
 <style type="text/css" src="/p/src/less/ctrstyles.css"></style>
 <div class="row">
     <div class="col-sm-5 col-md-5 col-lg-5">
-		<ul id=breadcrumb class="breadcrumb">
-			<li><a href='{{url_for("scriptures")}}'>  Scriptures  </a></li>
-			# if selectedVolume
-				<li><a href='{{url_for("scriptures")}}{{volumeName}}'>{{selectedVolume.volume_title}}</a></li>
-			# endif
-			# if selectedBook
-				<li><a href='{{url_for("scriptures")}}{{volumeName}}/{{bookName}}'>{{selectedBook.book_title}}</a></li>
-			# endif
-			# if chapterNum
-				<li><a href='{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}'>{{chapterNum}}</a></li>
-			# endif
-		</ul>
-		<div id=navigationholder class="navigationholder">
-			# if not selectedVolume
-				{% for volume in volumesObjects %}
-	  				<a href="{{url_for("scriptures")}}{{volume}}">{{volumesObjects[volume].volume_title}}</a><br>
-				{% endfor %}
-			# endif
-			# if selectedVolume and not selectedBook
-				{% for book in selectedVolume['books'] %}
-	  				<a href="{{url_for("scriptures")}}{{volumeName}}/{{book}}">{{selectedVolume['books'][book].book_title}}</a><br>
-				{% endfor %}
-			# endif
-			# if selectedBook and not chapterNum
-				{% for n in range (1, selectedBook.num_chapters+1) %}
-	  				<a href="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{n}}">{{n}}</a>
-	  				# if n < selectedBook.num_chapters
-	  					- 
-	  				# endif
-				{% endfor %}
-			# endif
-			# if verse_dbs
-				{% for verse in verse_dbs %}
-				<div class="versediv{%if verse.verse == verseNum %}selected{% endif %}">
-					<a class="verselink" style="text-decoration:none"  href="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}/{{verse.verse}}">
-						
-						<span class="versespan">
-							{{verse.verse}}. {{verse.verse_scripture}}
-						</span>
-					</a>
-				</div>
-				{%endfor%}
-			# endif
-		</div>
+		# include 'bit/scripture_nav.html'
 	</div>
     <div class="col-sm-7 col-md-7 col-lg-7">
 	#if verseNum
-		<div class="btn-toolbar" style="margin: 0;">
-			<div class="btn-group">
-				<button type="submit" onclick="showCommentForm()" class="btn btn-success">
-			    	Add to the discussion
-				</button>
-			</div>
-            <div class="btn-group">
-              <select class="form-control" id="filter">
-                <option>Filter by: All</option>
-                <option>Questions</option>
-                <option>Comments</option>
-                <option>Cross Reference</option>
-              </select>
-              <br>
-            </div>
-            <div class="btn-group">
-              <select class="form-control" id="sort">
-                <option>Sort by: Date</option>
-                <option>Like Count</option>
-                <option>Author</option>
-              </select>
-              <br>
-            </div>
-		</div>
-		
-		<form class="form" id="addCommentForm" method="POST" action="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}/{{verseNum}}">
-			<fieldset>
-			  {{form.csrf_token}}
-
-			  {{forms.text_field(form.comment)}}
-
-			  <button type="submit" class="btn">
-			    Add Comment
-			  </button>
-			</fieldset>
-		</form>
-		# if comment_dbs
-			{% for c in comment_dbs %}
-				{{c.comment}}<br>
-			{% endfor %}
-		# endif
-	</div>
+		# include 'bit/comment_stream.html'
 	# endif
 </div>
-# endblock	
-		
-
-
+# endblock

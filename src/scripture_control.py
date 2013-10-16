@@ -92,6 +92,8 @@ def scriptures_verse(volume_name, book_name, chapter_num, verse_num):
 
   query = model.Comment.query(model.Comment.verse_id == verse_id).order(-model.Verse.created)
   comment_dbs = query.fetch()
+  for c in comment_dbs:
+    c.userObject = c.user_key.get()
 
   return flask.render_template(
                                'scripture_selector.html',
@@ -110,7 +112,7 @@ def scriptures_verse(volume_name, book_name, chapter_num, verse_num):
   
 
 class CommentAddForm(wtf.Form):
-  comment = wtf.TextField('Comment', [wtf.validators.required()])
+  comment = wtf.TextAreaField('Comment', [wtf.validators.required()])
 
 
 
@@ -149,3 +151,17 @@ def verse_list():
                                verse_dbs=verse_dbs,
                                more_url=util.generate_more_url(more_cursor),
                                )
+
+@app.template_filter()
+def get_username_by_user_key(user_key):
+    user = user_key.get()
+    return user.username
+
+@app.template_filter()
+def get_usericon_by_user_key(user_key):
+    user = user_key.get()
+    return user.avatar_url
+
+@app.template_filter()
+def get_pretty_date(date):
+    return date.strftime("%b %d %Y")
