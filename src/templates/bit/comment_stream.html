@@ -37,15 +37,23 @@
 	</fieldset>
 </form>
 # if comment_dbs
+	<br>
 	{% for c in comment_dbs %}
 		<p>
 		<img src="{{c.user_key|get_usericon_by_user_key}}" height="42" width="42">
 		<a href="">{{c.user_key|get_username_by_user_key}}</a>
 		{{c.modified|get_pretty_date}}<br>
-		<div style="white-space:pre-wrap;">
-			{{c.comment}}<br>
+		<div style="white-space:pre-wrap;">{{c.comment}}<br></div>
+		<a href="">like</a>
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+		    More <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" role="menu">
+		    <li><a href="#">Flag Comment</a></li>
+		    <li><a href="#">Contact Author</a></li>
+		  </ul>
 		</div>
-		<a href="">flag</a>
 		<br><br>
 		</p>
 	{% endfor %}
