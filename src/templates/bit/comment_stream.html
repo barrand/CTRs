@@ -1,4 +1,5 @@
 # import 'macro/forms.html' as forms
+<style type="text/css" src="/p/src/less/ctrstyles.css"></style>
 <div class="btn-toolbar" style="margin: 0;">
 	<div class="btn-group">
 		<button type="submit" onclick="showCommentForm()" class="btn btn-success">
@@ -41,7 +42,9 @@
 		<img src="{{c.user_key|get_usericon_by_user_key}}" height="42" width="42">
 		<a href="">{{c.user_key|get_username_by_user_key}}</a>
 		{{c.modified|get_pretty_date}}<br>
-		{{c.comment}}<br>
+		<div style="white-space:pre-wrap;">
+			{{c.comment}}<br>
+		</div>
 		<a href="">flag</a>
 		<br><br>
 		</p>

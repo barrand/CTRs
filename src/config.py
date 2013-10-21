@@ -52,6 +52,6 @@ SCRIPTS = {
       'src/coffee/site/profile.coffee',
       'src/coffee/site/admin.coffee',
 
-      'dst/js/scripturecontroller.js',
+      'src/coffee/scripturecontroller.js',
     ],
   }
