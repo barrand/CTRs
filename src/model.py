@@ -101,6 +101,7 @@ class Comment(Base):
   comment = ndb.StringProperty(required=True)
   like_count = ndb.IntegerProperty(required=False, default=0)
   verse_id = ndb.IntegerProperty(required=True)
+  commentType = ndb.StringProperty(required=True)
   # tags = ndb.StringProperty(required=True)
   # comment_type = ndb.StringProperty(required=True)
 #   response_to_comment = comment object

@@ -1,8 +1,9 @@
 # import 'macro/forms.html' as forms
 <style type="text/css" src="/p/src/less/ctrstyles.css"></style>
+<script type="text/javascript" src="/p/src/coffee/scripturecontroller.js"></script>
 <div class="btn-toolbar" style="margin: 0;">
 	<div class="btn-group">
-		<button type="submit" onclick="showCommentForm()" class="btn btn-success">
+		<button type="submit" onclick="showCommentForm()" class="btn btn-primary">
 	    	Add to the discussion
 		</button>
 	</div>
@@ -31,9 +32,12 @@
 
 	  {{forms.text_field(form.comment)}}
 
-	  <button type="submit" class="btn">
-	    Add Comment
-	  </button>
+		{% for subfield in form.commentType %}
+		        {{ subfield }} {{ subfield.label }}
+		{% endfor %}
+		<button type="submit" class="btn btn-success">
+	    Submit
+	  	</button>
 	</fieldset>
 </form>
 # if comment_dbs
@@ -42,9 +46,12 @@
 		<p>
 		<img src="{{c.user_key|get_usericon_by_user_key}}" height="42" width="42">
 		<a href="">{{c.user_key|get_username_by_user_key}}</a>
-		{{c.modified|get_pretty_date}}<br>
+		{{c.modified|get_pretty_date}}  {{c.commentType}}<br>
 		<div style="white-space:pre-wrap;">{{c.comment}}<br></div>
 		<a href="">like</a>
+		{% if c.commentType == 'question' %}
+			reply link
+		{% endif %}
 		<div class="btn-group">
 		  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
 		    More <span class="caret"></span>

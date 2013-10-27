@@ -9,8 +9,7 @@ window.showCommentForm = function() {
 
 // the on ready function
 $(document).ready(function() {
-	$('#addCommentForm').hide();
 	commentFormVisible = false;
-	
+	showCommentForm();
 
 });

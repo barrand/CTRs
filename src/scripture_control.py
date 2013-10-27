@@ -86,6 +86,7 @@ def scriptures_verse(volume_name, book_name, chapter_num, verse_num):
         user_key=auth.current_user_key(),
         comment=form.comment.data,
         verse_id=verse_id,
+        commentType=form.commentType.data,
       )
     comment_db.put()
     flask.flash('New comment was successfuly created!', category='success')
@@ -113,6 +114,10 @@ def scriptures_verse(volume_name, book_name, chapter_num, verse_num):
 
 class CommentAddForm(wtf.Form):
   comment = wtf.TextAreaField('Comment', [wtf.validators.required()])
+  commentType = wtf.RadioField('CommentType', choices=[('comment', 'comment'), 
+        ('question', 'question'), 
+        ('crossreference', 'cross reference')],
+        default='comment')
 
 
 
@@ -165,3 +170,7 @@ def get_usericon_by_user_key(user_key):
 @app.template_filter()
 def get_pretty_date(date):
     return date.strftime("%b %d %Y")
+
+@app.template_filter()
+def comment_is_question(commentType):
+    return commentType == 'question'
