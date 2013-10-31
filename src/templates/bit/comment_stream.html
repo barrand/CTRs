@@ -35,6 +35,7 @@
 		{% for subfield in form.commentType %}
 		        {{ subfield }} {{ subfield.label }}
 		{% endfor %}
+		{{forms.text_field(form.tags)}}
 		<button type="submit" class="btn btn-success">
 	    Submit
 	  	</button>
@@ -51,6 +52,13 @@
 		<a href="">like</a>
 		{% if c.commentType == 'question' %}
 			reply link
+		{% endif %}
+		{% if c.tags %}
+			{% for tag in c.tags %}
+				<button type="button" class="btn btn-default btn-xs">
+		    		{{tag}}
+		  		</button>
+			{% endfor %}
 		{% endif %}
 		<div class="btn-group">
 		  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">

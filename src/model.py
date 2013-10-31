@@ -98,12 +98,11 @@ class Verse(Base):
 
 class Comment(Base):
   user_key = ndb.KeyProperty(kind=User, required=True)
-  comment = ndb.StringProperty(required=True)
+  comment = ndb.TextProperty(required=True)
   like_count = ndb.IntegerProperty(required=False, default=0)
   verse_id = ndb.IntegerProperty(required=True)
   commentType = ndb.StringProperty(required=True)
-  # tags = ndb.StringProperty(required=True)
-  # comment_type = ndb.StringProperty(required=True)
+  tags = ndb.StringProperty(repeated=True)
 #   response_to_comment = comment object
 #   active = ndb.BooleanProperty(default=True)
 # references

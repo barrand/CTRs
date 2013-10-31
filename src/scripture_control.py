@@ -82,11 +82,13 @@ def scriptures_verse(volume_name, book_name, chapter_num, verse_num):
   
   form = CommentAddForm()
   if form.validate_on_submit():
+    tagsArr = form.tags.data.split(',')
     comment_db = model.Comment(
         user_key=auth.current_user_key(),
         comment=form.comment.data,
         verse_id=verse_id,
         commentType=form.commentType.data,
+        tags=tagsArr,
       )
     comment_db.put()
     flask.flash('New comment was successfuly created!', category='success')
@@ -118,6 +120,7 @@ class CommentAddForm(wtf.Form):
         ('question', 'question'), 
         ('crossreference', 'cross reference')],
         default='comment')
+  tags = wtf.TextField('tags')
 
 
 
