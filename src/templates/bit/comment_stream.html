@@ -43,34 +43,57 @@
 </form>
 # if comment_dbs
 	<br>
+	<table cellpadding="2">
 	{% for c in comment_dbs %}
-		<p>
-		<img src="{{c.user_key|get_usericon_by_user_key}}" height="42" width="42">
-		<a href="">{{c.user_key|get_username_by_user_key}}</a>
-		{{c.modified|get_pretty_date}}  {{c.commentType}}<br>
-		<div style="white-space:pre-wrap;">{{c.comment}}<br></div>
-		<a href="">like</a>
+		<tr>
+			<td colspan="2">
+				<img src="{{c.user_key|get_usericon_by_user_key}}" height="42" width="42">
+				<a href="">{{c.user_key|get_username_by_user_key}}</a>
+				{{c.modified|get_pretty_date}}
+			</td>
+			<td>
+				<div class="btn-group">
+				  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+				    More <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" role="menu">
+				    <li><a href="#">Flag Comment</a></li>
+				    <li><a href="#">Contact Author</a></li>
+				  </ul>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<div style="white-space:pre-wrap;">{{c.comment}}</div>
+			</td>
+		</tr>
 		{% if c.commentType == 'question' %}
-			reply link
+			<tr>
+				<td colspan="3">
+					<a href="">Reply to this question</a>
+				</td>
+			</tr>
 		{% endif %}
-		{% if c.tags %}
-			{% for tag in c.tags %}
-				<button type="button" class="btn btn-default btn-xs">
-		    		{{tag}}
-		  		</button>
-			{% endfor %}
-		{% endif %}
-		<div class="btn-group">
-		  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-		    More <span class="caret"></span>
-		  </button>
-		  <ul class="dropdown-menu" role="menu">
-		    <li><a href="#">Flag Comment</a></li>
-		    <li><a href="#">Contact Author</a></li>
-		  </ul>
-		</div>
-		<br><br>
-		</p>
+		<tr>
+			<td colspan="2">
+				{% if c.tags %}
+					{% for tag in c.tags %}
+						<button type="button" class="btn btn-default btn-xs">
+				    		{{tag}}
+				  		</button>
+					{% endfor %}
+				{% endif %}
+			</td>
+			<td>
+				<a href="">like</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3"><hr></td>
+		</tr>
 	{% endfor %}
+	</table>
+	
 # endif
 </div>
