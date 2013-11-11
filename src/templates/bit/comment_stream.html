@@ -27,7 +27,33 @@
       <br>
     </div>
 </div>
-	
+<form class="form" id="addCommentForm2" method="POST" action="/addComment">
+	<textarea class="form-control" rows="3" name="commentBody" placeholder="Add your comment here..."></textarea><br>
+	<input type="text" class="form-control" name="tags" placeholder="Add tags like: faith, hope, charity, etc"><br>
+	<div class="radio-inline">
+	  <label>
+	    <input type="radio" name="commentType" id="comment" value="comment" checked>
+	    comment
+	  </label>
+	</div>
+	<div class="radio-inline">
+	  <label>
+	    <input type="radio" name="commentType" id="question" value="question">
+	    question 
+	  </label>
+	</div>
+	<div class="radio-inline">
+	  <label>
+	    <input type="radio" name="commentType" id="crossreference" value="crossreference">
+	    cross reference
+	  </label>
+	</div>
+	{{verseId}}
+	<input type="hidden" name="verse_id" value={{verseId}}>
+	<button type="submit" class="btn btn-success">
+	    Submit
+	 </button>
+</form>
 <form class="form" id="addCommentForm" method="POST" action="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}/{{verseNum}}">
 	<fieldset>
 	  {{form.csrf_token}}

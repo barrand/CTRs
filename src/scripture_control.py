@@ -109,6 +109,7 @@ def scriptures_verse(volume_name, book_name, chapter_num, verse_num):
                                bookName=book_name,
                                verse_dbs=verse_dbs,
                                verseNum=verse_num,
+                               verseId=verse_id,
                                form=form,
                                comment_dbs=comment_dbs
                                )
@@ -122,6 +123,28 @@ class CommentAddForm(wtf.Form):
         default='comment')
   tags = wtf.TextField('tags')
 
+
+@app.route('/addComment', methods = ['POST'])
+def addComment():
+    commentBody = request.form['commentBody']
+
+
+    tagsArr = request.form['tags'].split(',')
+    print "tags: ", tagsArr;
+    print "comment body ", request.form['commentBody']
+    print "verse id ", request.form['verse_id']
+    print "comment type ", request.form['commentType']
+    comment_db = model.Comment(
+        user_key=auth.current_user_key(),
+        comment=request.form['commentBody'],
+        verse_id= int(request.form['verse_id']),
+        commentType=request.form['commentType'],
+        tags=tagsArr,
+      )
+    comment_db.put()
+    flask.flash('New comment was successfuly created!', category='success')
+    print commentBody
+    return commentBody
 
 
 @app.route('/get_verses/')
