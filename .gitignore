@@ -8,3 +8,4 @@ src/node_modules
 src/static/dst
 src/static/min
 temp/*
+storage_backup/*
