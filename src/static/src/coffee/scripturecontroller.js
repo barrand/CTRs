@@ -17,13 +17,15 @@ window.toggleCommentForm = function(verseId) {
 }
 
 window.getContentFormString = function(verseId, inReplyToCommentId){
-	alert(verseId + " dd");
 	formStr = '<form class="form" id="defaultCommentForm" method="POST" action="/addComment">'+
 				'<textarea class="form-control" rows="3" name="commentBody" placeholder="Add your comment here...">'+
 				'</textarea><br>'+
 				'<input type="text" class="form-control" name="tags" placeholder="Add tags like: faith, hope, charity, etc"><br>'+
 				'<div class="radio-inline">'+
 			  		'<label><input type="radio" name="commentType" id="comment" value="comment" checked> comment </label>'+
+				'</div>'+
+				'<div class="radio-inline">'+
+			  		'<label><input type="radio" name="commentType" id="question" value="question" checked> question </label>'+
 				'</div>'+
 				'<div class="radio-inline">'+
 					'<label><input type="radio" name="commentType" id="crossreference" value="crossreference"> cross reference </label>'+
