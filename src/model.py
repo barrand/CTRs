@@ -103,8 +103,8 @@ class Comment(Base):
   verse_id = ndb.IntegerProperty(required=True)
   commentType = ndb.StringProperty(required=True)
   tags = ndb.StringProperty(repeated=True)
-#   response_to_comment = comment object
-#   active = ndb.BooleanProperty(default=True)
+  inReplyToCommentId = ndb.IntegerProperty(required=False)
+  active = ndb.BooleanProperty(default=True)
 # references
 
   

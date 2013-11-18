@@ -3,7 +3,7 @@
 <script type="text/javascript" src="/p/src/coffee/scripturecontroller.js"></script>
 <div class="btn-toolbar" style="margin: 0;">
 	<div class="btn-group">
-		<button type="submit" onclick="showCommentForm()" class="btn btn-primary">
+		<button type="submit" onclick="toggleCommentForm({{verseId}})" class="btn btn-primary">
 	    	Add to the discussion
 		</button>
 	</div>
@@ -27,7 +27,9 @@
       <br>
     </div>
 </div>
-<form class="form" id="addCommentForm2" method="POST" action="/addComment">
+<div id="commentFormHolder">
+</div>
+<!--<form class="form" id="addCommentForm2" method="POST" action="/addComment">
 	<textarea class="form-control" rows="3" name="commentBody" placeholder="Add your comment here..."></textarea><br>
 	<input type="text" class="form-control" name="tags" placeholder="Add tags like: faith, hope, charity, etc"><br>
 	<div class="radio-inline">
@@ -53,8 +55,8 @@
 	<button type="submit" class="btn btn-success">
 	    Submit
 	 </button>
-</form>
-<form class="form" id="addCommentForm" method="POST" action="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}/{{verseNum}}">
+</form>-->
+<!--<form class="form" id="addCommentForm" method="POST" action="{{url_for("scriptures")}}{{volumeName}}/{{bookName}}/{{chapterNum}}/{{verseNum}}">
 	<fieldset>
 	  {{form.csrf_token}}
 
@@ -68,7 +70,7 @@
 	    Submit
 	  	</button>
 	</fieldset>
-</form>
+</form>-->
 # if comment_dbs
 	<br>
 	<table cellpadding="2">

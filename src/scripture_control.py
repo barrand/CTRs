@@ -132,15 +132,24 @@ def addComment():
     tagsArr = request.form['tags'].split(',')
     print "tags: ", tagsArr;
     print "comment body ", request.form['commentBody']
-    print "verse id ", request.form['verse_id']
-    print "comment type ", request.form['commentType']
+    print "verrrdsflkfdskl ", request.form['verseId']
+    print "comment type", request.form['commentType']
+    print "verse id ", request.form['verseId']
+    print "in reply to", request.form['inReplyToCommentId']
     comment_db = model.Comment(
         user_key=auth.current_user_key(),
         comment=request.form['commentBody'],
-        verse_id= int(request.form['verse_id']),
+        verse_id= int(request.form['verseId']),
         commentType=request.form['commentType'],
         tags=tagsArr,
       )
+    
+    try:
+      comment_db.inReplyToCommentId = int (request.form['inReplyToCommentId'])
+      print "did have a reply"
+    except:
+      print "didn't have a reply to id"
+    
     comment_db.put()
     flask.flash('New comment was successfuly created!', category='success')
     print commentBody
