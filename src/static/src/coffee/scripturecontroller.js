@@ -5,6 +5,7 @@ window.toggleCommentForm = function(verseId) {
 		$( "#defaultCommentForm").hide();
 		commentFormVisible = false;
 		firstTime = false;
+		
 	}
 
 	if(commentFormVisible){
